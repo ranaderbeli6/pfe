@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "root",
+    "password": "adminadmin1234*",
+    "database": "weefarm",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "weefarm_test",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "weefarm_prod",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}

@@ -1,0 +1,49 @@
+.add-service-form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .add-service-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-service-form input,
+  .add-service-form textarea,
+  .add-service-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-service-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-service-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    margin-top: 10px;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+  }
+  

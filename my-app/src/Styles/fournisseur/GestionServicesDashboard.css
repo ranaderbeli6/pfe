@@ -1,0 +1,176 @@
+
+body {
+  margin: 10px;
+  padding: 10px;
+  overflow-x: hidden;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+.gestion-services-wrapper {
+  margin-top: 140px; 
+  padding: 30px 40px; 
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  position: relative;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.gestion-services-wrapper .add-service-btn,
+.gestion-services-wrapper .delete-selected-btn,
+.gestion-services-wrapper .edit-btn,
+.gestion-services-wrapper .delete-btn {
+  padding: 12px 25px;
+  margin: 10px;       
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gestion-services-wrapper .add-service-btn {
+  background-color: #5c9556;
+  color: white;
+}
+.gestion-services-wrapper .add-service-btn:hover {
+  background-color: #125016;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gestion-services-wrapper .delete-selected-btn {
+  background-color: #f44336;
+  color: white;
+}
+.gestion-services-wrapper .delete-selected-btn:hover {
+  background-color: #e53935;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gestion-services-wrapper .edit-btn {
+  background-color: #3f6d92;
+  color: white;
+}
+.gestion-services-wrapper .edit-btn:hover {
+  background-color: #1976d2;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gestion-services-wrapper .delete-btn {
+  background-color: #a95252;
+  color: white;
+}
+.gestion-services-wrapper .delete-btn:hover {
+  background-color: #912a2a;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.gestion-services-wrapper .filter-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.gestion-services-wrapper .filter-container select,
+.gestion-services-wrapper .filter-container input.search-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.gestion-services-wrapper .services-table {
+  margin-top: 30px;
+  overflow-x: auto;
+}
+.gestion-services-wrapper .services-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.gestion-services-wrapper .services-table th,
+.gestion-services-wrapper .services-table td {
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+}
+.gestion-services-wrapper .services-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: 700;
+}
+.gestion-services-wrapper .services-table td {
+  background-color: #fff;
+  color: #666;
+}
+.gestion-services-wrapper .services-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+
+.gestion-services-wrapper .error,
+.gestion-services-wrapper .success {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: opacity 1s ease-out;
+}
+
+.gestion-services-wrapper .error {
+  color: rgb(255, 0, 0);
+  background-color: rgba(255, 0, 0, 0.1);
+}
+.gestion-services-wrapper .success {
+  color: rgb(0, 128, 0);
+  background-color: rgba(0, 128, 0, 0.1);
+}
+
+.gestion-services-wrapper .error.fade-out,
+.gestion-services-wrapper .success.fade-out {
+  opacity: 0;
+}
+
+
+.gestion-services-wrapper .services-table input[type="checkbox"] {
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .gestion-services-wrapper {
+    margin-top: 80px;
+    padding: 20px;
+  }
+  .gestion-services-wrapper .filter-container {
+    justify-content: center;
+  }
+  .gestion-services-wrapper .services-table th,
+  .gestion-services-wrapper .services-table td {
+    padding: 10px;
+  }
+}

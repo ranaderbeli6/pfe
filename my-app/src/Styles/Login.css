@@ -1,0 +1,272 @@
+body {
+  margin: 0;
+  color: #c8c1c1;
+  background: linear-gradient(135deg, #e8effa, #c3cfe2);
+  font: 600 16px/18px "Open Sans", sans-serif;
+}
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.login-wrap {
+  margin-top: 20px;
+  position: relative;
+  width: 100%;
+  margin: auto;
+  max-width: 575px;
+  min-height: 685px;
+}
+
+.login-wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  z-index: -1;
+}
+
+.login-html {
+  width: 90%;
+  height: 105%;
+  position: absolute;
+  padding: 90px 70px 50px 70px;
+  background: rgb(255, 255, 255);
+  border-radius: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-html:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(19, 14, 14, 0.981);
+}
+
+.login-html .sign-in-htm,
+.login-html .sign-up-htm {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  transition: all 0.6s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm,
+.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+  transform: rotateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.login-html .tab {
+  font-size: 22px;
+  margin-right: 15px;
+  cursor: pointer;
+  padding-bottom: 5px;
+  margin: 0 15px 10px 0;
+  display: inline-block;
+  border-bottom: 2px solid transparent;
+  color: #555;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.login-html .sign-in:checked + .tab,
+.login-html .sign-up:checked + .tab {
+  color: #4a514b;
+}
+
+.login-form {
+  min-height: 345px;
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.login-form .group {
+  margin-bottom: 15px;
+}
+
+.login-form .group .label,
+.login-form .group .input,
+.login-form .group .button {
+  width: 100%;
+  color: #100a0a;
+  display: block;
+}
+
+.login-form .group .input,
+.login-form .group .button {
+  border: none;
+  padding: 15px 20px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form .group .input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(255, 111, 97, 0.3);
+}
+
+.login-form .group .label {
+  color: #777;
+  font-size: 12px;
+}
+
+.login-form .group .button {
+  background: linear-gradient(135deg, #c3e6b0, #ebb7b5);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.login-form .group .button:hover {
+  background: linear-gradient(135deg, #1b1e19, #000000);
+  transform: translateY(-2px);
+}
+
+.login-form .group label .icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+  background: rgba(120, 19, 19, 0.1);
+  transition: background 0.3s ease;
+}
+
+.login-form .group label .icon:before,
+.login-form .group label .icon:after {
+  content: "";
+  width: 10px;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.login-form .group label .icon:before {
+  left: 3px;
+  width: 5px;
+  bottom: 6px;
+  transform: scale(0) rotate(0);
+}
+
+.login-form .group label .icon:after {
+  top: 6px;
+  right: 0;
+  transform: scale(0) rotate(0);
+}
+
+.login-form .group .check:checked + label {
+  color: #ff6f61;
+}
+
+.login-form .group .check:checked + label .icon {
+  background: #ff6f61;
+}
+
+.login-form .group .check:checked + label .icon:before {
+  transform: scale(1) rotate(45deg);
+}
+
+.login-form .group .check:checked + label .icon:after {
+  transform: scale(1) rotate(-45deg);
+}
+
+.hr {
+  height: 2px;
+  margin: 60px 0 50px 0;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease;
+}
+
+.foot-lnk {
+  text-align: center;
+  color: #555;
+}
+
+.foot-lnk a {
+  color: #2a2726;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.foot-lnk a:hover {
+  color: #ff3b2f;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-wrap {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.login-form .group {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.login-form .group:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.login-form .group:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.login-form .group:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.login-form .group:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.login-form .group:nth-child(5) {
+  animation-delay: 1s;
+}
+
+.login-form .group:nth-child(6) {
+  animation-delay: 1.2s;
+}

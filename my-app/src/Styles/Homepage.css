@@ -1,0 +1,75 @@
+.homepage-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.homepage-container {
+  background: url('../images/aa.jpg') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  background-size: 70% 70%;  
+  background-color: #ffffff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;  
+  text-align: center;  
+  padding: 0 20px; 
+}
+
+.text-container {
+  max-width: 1000px;
+  padding-right: 500px; 
+}
+
+.homepage-container h1 {
+  font-size: 3rem;
+  color: #f9f9f9;
+  font-weight: bold;
+}
+
+.homepage-container p {
+  font-size: 1.2rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #ffffff;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.explore-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #fff9f9;
+  color: rgb(13, 12, 12);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 18px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.explore-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Section Catalogue */
+.catalogue-section {
+  padding: 50px 20px;
+  background-color: #f4f4f4;
+}
+
+.catalogue-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.catalogue-section p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}

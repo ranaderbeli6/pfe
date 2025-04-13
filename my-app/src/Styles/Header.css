@@ -1,0 +1,260 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start; 
+}
+
+.logo {
+  height: 50px;  
+}
+
+.search-bar {
+  border: 1px solid #0e0f0d;
+  border-radius: 8px;
+  padding: 10px 15px;
+  width: 350px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+  width: 400px;
+}
+
+.nav-links {
+  padding-left: 300px;
+  display: flex;
+  gap: 25px;
+  font-size: 18px;
+}
+
+.nav-links a {
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.3s;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #413f3f;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links a:hover {
+  color: #000000f1;
+  transform: translateY(-2px);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #78867c;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Catalogue Dropdown Styles */
+.catalogue-dropdown {
+  position: relative;
+  display: inline-block;
+}
+.header .catalogue-btn {
+  background: white;   background: white;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #413f3f;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s;
+}
+
+
+
+.catalogue-btn:hover {
+  color: #000000f1;
+  transform: translateY(-2px);
+}
+
+.catalogue-dropdown .dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 1001;
+}
+
+.catalogue-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.catalogue-dropdown .dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.catalogue-dropdown .dropdown-menu a:hover {
+  background-color: #ffffff;
+  color: #78867c;
+}
+
+.catalogue-dropdown::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #78867c;
+  transition: width 0.3s ease;
+}
+
+.catalogue-dropdown:hover::after {
+  width: 100%;
+}
+
+/* Icônes */
+.header-icons {
+  display: flex;
+  gap: 14px;
+  font-size: 20px;  
+}
+
+.header-icons a {
+  color: rgb(64, 68, 65);
+  transition: all 0.3s;
+}
+
+.header-icons a:hover {
+  color: #000000;
+  transform: scale(1.2);  
+}
+
+/* Profil et menu déroulant */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-dropdown .dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu a, 
+.dropdown-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-menu a:hover, 
+.dropdown-menu button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Icône du profil */
+.profile-dropdown > svg {
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.profile-dropdown > svg:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    padding-left: 0;
+    gap: 15px;
+  }
+  
+  .search-bar {
+    width: 200px;
+  }
+  
+  .search-bar:focus {
+    width: 250px;
+  }
+  
+  .catalogue-dropdown .dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  
+  .catalogue-dropdown.active .dropdown-menu {
+    display: flex;
+  }
+}

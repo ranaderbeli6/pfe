@@ -1,0 +1,151 @@
+body {
+    font-family: 'Merriweather', serif; /* Police organique et lisible */
+    margin: 0;
+    background: linear-gradient(135deg, #f0f4f8, #e0e8f0); /* Dégradé de fond doux */
+    color: #2d3748; /* Couleur de texte principale (gris foncé) */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.left,
+.right {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.5s ease;
+}
+
+.left {
+    background: linear-gradient(135deg, #bfdee2, #798690); /* Dégradé orange doux (terre) */
+    color: white; /* Texte en blanc pour contraster */
+}
+
+.right {
+    background: linear-gradient(135deg, #bfdee2, #798690); /* Dégradé orange doux (terre) */
+    color: white; /* Texte en blanc pour contraster */
+}
+
+.separator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
+    transform: skewY(-5deg);
+    z-index: 0;
+}
+
+.form-overlay {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95); /* Fond blanc légèrement transparent */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Ombre douce */
+    width: 350px;
+    z-index: 1;
+    backdrop-filter: blur(8px); /* Effet de flou pour un look moderne */
+}
+
+h2 {
+    font-weight: 700; /* Texte en gras */
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2d3748; /* Couleur de texte foncée */
+}
+
+input,
+select,
+button {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #cbd5e0; /* Bordure douce */
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #2c3a2c; /* Bordure verte lors de la sélection */
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); /* Ombre verte */
+}
+
+button {
+    background-color: #4caf50; /* Vert naturel */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #388e3c; /* Vert plus foncé au survol */
+    transform: translateY(-2px); /* Léger effet de levée */
+}
+
+.bold-text {
+    font-weight: 700;
+    font-size: 18px;
+    color: #2d3748; /* Couleur de texte foncée */
+}
+
+.toggle-buttons {
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    margin: 0 10px;
+    background: transparent;
+    border: 2px solid #4caf50; /* Bordure verte */
+    color: #4caf50; /* Texte vert */
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.toggle-buttons button:hover {
+    background: #4caf50; /* Fond vert au survol */
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Ajout d'une animation pour le formulaire */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-overlay {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Ajout d'icônes ou d'éléments décoratifs */
+.decorative-leaf {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    opacity: 0.2;
+    z-index: -1;
+}
