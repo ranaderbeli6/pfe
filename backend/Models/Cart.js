@@ -1,4 +1,3 @@
-// models/Cart.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -10,11 +9,11 @@ const Cart = sequelize.define('Cart', {
   },
   sessionId: {
     type: DataTypes.STRING,
-    allowNull: true // Null for logged-in users
+    allowNull: true 
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: true // Null for guests
+    allowNull: true 
   },
   status: {
     type: DataTypes.ENUM('actif', 'converti', 'abandonné', 'commandé'),

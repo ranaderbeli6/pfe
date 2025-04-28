@@ -15,4 +15,7 @@ router.delete('/produits/:id', verifyToken, verifyRole(['admin', 'superadmin', '
 router.put('/produits/accepter/:id', verifyToken, verifyRole(['admin', 'superadmin']), produitController.accepterProduit);
 router.put('/produits/refuser/:id', verifyToken, verifyRole(['admin', 'superadmin']), produitController.refuserProduit);
 
+router.get('/top-rated', produitController.getTopRatedProducts);
+
+
 module.exports = router;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../Styles/Login.css';
+import Header from './Header';
 import axios from '../axios'
+
 function AuthPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -88,6 +90,7 @@ function AuthPage() {
   return (
     <div>
       <br />
+      <Header />
       <br />
       <div className="login-wrap">
         <div className="login-html">

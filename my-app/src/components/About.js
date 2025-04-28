@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div className="about-container">
       <Header />
-      <div className="about-hero">
+      <div className="ab">
         <h1 className="about-title">Découvrez Weefarm</h1>
         <p className="about-tagline">La révolution agricole numérique en Tunisie</p>
       </div>
@@ -38,7 +38,7 @@ const About = () => {
 
         <section className="about-cta">
           
-      <h2 className="about-section-title">Prêt à rejoindre l'aventure?</h2>
+      <h2 className="aboutsec">Prêt à rejoindre l'aventure?</h2>
       <Link to="/contact">
         <button className="cta-button">Nous contacter</button>
       </Link>

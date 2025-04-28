@@ -1,0 +1,18 @@
+.stat-avis-container {
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .note-summary {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #374151;
+  }
+  
+  h2 {
+    margin-bottom: 15px;
+    color: #1f2937;
+  }
+  

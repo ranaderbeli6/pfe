@@ -73,20 +73,19 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="header-left">
+       <Link to="/"> <div className="header-left">
         <img src={logo} alt="Verdanova Logo" className="logo" />
-        <input type="text" placeholder="Recherche..." className="search-bar" />
       </div>
+      </Link>
       
       <nav className="nav-links">
         <Link to="/">Accueil</Link>
         
-        {/* Catalogue dropdown */}
         <div 
           className={`catalogue-dropdown ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={toggleMobileMenu}
         >
-          <button className="catalogue-btn">Catalogue</button>
+          <Link to="/" className="catalogue-btn">Catalogue</Link>
           <div className="dropdown-menu">
             <Link to="/catalogue/produits">Produits Agricoles</Link>
             <Link to="/catalogue/services">Services Agricoles</Link>

@@ -26,13 +26,21 @@ import CatalogueService from "./components/user/CatalogueServices";
 import About from "./components/About";
 import UserLayout from "./components/user/UserLayout";
 import AdminProductsenattenteManagement from "./components/admin/AdminProductsenattenteManagement";
-
+import Orders from "./components/user/orders";
+import OrdersManagement from "./components/admin/OrdersManagement";
+import AccountManagement from "./components/user/AccountManagement ";
+import Statistiques from "./components/fournisseur/Statistiques";
 function App() {
   return (
     <Router>
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactForm />} />
+        <Route path="/acheteur" element={<Orders />} />
+        <Route path="/mon-compte" element={<AccountManagement />} />
+
+        
         <Route path="/login" element={<AuthPage />} />
         <Route path="/reset-password-request" element={<ResetPasswordRequest />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
@@ -43,11 +51,14 @@ function App() {
 
         <Route path="/about" element={<About />} />
 
-
         <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<UserManagement />} />
+        
+
         <Route path="gestion-users" element={<UserManagement />} />
         <Route path="add-user" element={<InviteAdminForm />} />
+        <Route path="/admin//gestion-commandes" element={<OrdersManagement />} />
+
         <Route path="/admin/gestion-produits" element={<AdminProductsenattenteManagement />} />
 
   
@@ -64,11 +75,16 @@ function App() {
           <Route path="catalogue" element={<Cataloguefournisseur />} />
           <Route path="services/ajouter" element={<AddServiceForm />} />
           <Route path="/fournisseur/services" element={<GestionServicesDashboard />} />
-          <Route path="/fournisseur/services/modifier/:id" element={<EditServiceForm />} />
+          <Route path="fournisseur/acheteur" element={<Orders />} />
+          <Route path="/fournisseur/suivi-ventes-avis" element={<Statistiques />} />
 
+         
+          <Route path="/fournisseur/services/modifier/:id" element={<EditServiceForm />} />
+          
           </Route>
 
           <Route path="/profileacheteur" element={<UserLayout />}>
+
           <Route index element={<Home />} />
 
           </Route>

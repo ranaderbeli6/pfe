@@ -1,79 +1,129 @@
+/* Styles généraux de la page */
 .panier-page {
+  font-family: 'Arial', sans-serif;
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto; /* Ajout de marge en haut et en bas */
+  background-color: #f8f9fa; /* Fond légèrement gris pour la page */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère pour la page */
 }
 
 .panier-container {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
+.panier-container h1 {
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Style pour le panier vide */
 .panier-vide {
   text-align: center;
   padding: 50px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  color: #555;
 }
 
 .btn-boutique {
   display: inline-block;
   margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #4CAF50;
+  padding: 12px 24px;
+  background-color: #28a745; /* Vert plus moderne */
   color: white;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
+.btn-boutique:hover {
+  background-color: #1e7e34;
+}
+
+/* Liste des articles dans le panier */
 .items-list {
   margin-bottom: 30px;
 }
 
 .cart-item {
   display: flex;
-  border: 1px solid #ddd;
+  border: 1px solid #e0e0e0;
   padding: 15px;
   margin-bottom: 15px;
-  border-radius: 5px;
-  position: relative;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  align-items: center; /* Alignement vertical des éléments */
 }
 
 .item-image {
   width: 100px;
   height: 100px;
   margin-right: 20px;
+  border-radius: 6px;
+  overflow: hidden; /* Empêche l'image de dépasser la bordure */
+  flex-shrink: 0; /* Empêche l'image de rétrécir */
 }
 
 .item-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block; /* Supprime l'espace sous l'image */
 }
 
 .no-image {
   width: 100%;
   height: 100%;
-  background: #eee;
+  background: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #777;
+  font-size: 0.9rem;
 }
 
 .item-details {
   flex-grow: 1;
 }
 
+.item-details h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.item-details p {
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
 .quantity-control {
   display: flex;
   align-items: center;
   margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden; /* Pour border-radius sur les boutons */
+  width: fit-content; /* Ajuste la largeur au contenu */
 }
 
 .quantity-control button {
-  width: 30px;
-  height: 30px;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: 8px 12px;
   cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.quantity-control button:hover:not(:disabled) {
+  background-color: #f0f0f0;
 }
 
 .quantity-control button:disabled {
@@ -82,61 +132,294 @@
 }
 
 .quantity-control span {
-  margin: 0 15px;
-  min-width: 20px;
+  color: black;
+  padding: 8px 15px;
+  min-width: 30px;
   text-align: center;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 .item-total {
   font-weight: bold;
-  color: #333;
+  color: #28a745; /* Vert pour le total */
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.stock-error {
+  color: #dc3545; /* Rouge pour l'erreur de stock */
+  font-size: 0.85rem;
+  margin-top: 5px;
 }
 
 .remove-item {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  color: #999;
+  color: #777;
+  transition: color 0.2s ease;
+  margin-left: 15px;
+  padding: 5px; /* Augmente la zone cliquable */
+  border-radius: 4px; /* Pour un meilleur feedback au clic */
 }
 
 .remove-item:hover {
-  color: #f44336;
+  color: #dc3545;
+  background-color: #fdecea; /* Léger fond rouge au survol */
 }
 
+/* Récapitulatif du panier */
 .cart-summary {
-  border: 1px solid #ddd;
+  border: 1px solid #e0e0e0;
   padding: 20px;
-  border-radius: 5px;
-  background: #f9f9f9;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .cart-summary h3 {
   margin-top: 0;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.cart-summary p {
+  color: #555;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between; /* Aligne le texte et la valeur */
+}
+
+.cart-summary p strong {
+  color: #333;
 }
 
 .cart-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* Aligne les boutons à droite */
   margin-top: 20px;
+  gap: 10px; /* Espacement entre les boutons */
 }
 
 .btn-clear {
   padding: 10px 20px;
-  background-color: #f44336;
+  background-color: #f44336; /* Rouge */
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-clear:hover {
+  background-color: #d32f2f;
 }
 
 .btn-checkout {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+  padding: 12px 24px;
+  background-color: #007bff; /* Bleu */
   color: white;
   text-decoration: none;
-  border-radius: 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-checkout:hover {
+  background-color: #0056b3;
+}
+
+/* Modal de checkout */
+.checkout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.checkout-modal {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+}
+
+.modal-content h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #777;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Important pour le padding et la bordure */
+}
+
+.form-group textarea {
+  resize: vertical; /* Permet de redimensionner verticalement */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  background-color: #6c757d; /* Gris */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #545b62;
+}
+
+.btn-confirm {
+  padding: 12px 24px;
+  background-color: #28a745; /* Vert */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.btn-confirm:hover {
+  background-color: #1e7e34;
+}
+
+.btn-confirm:disabled {
+  background-color: #a7a7a7;
+  cursor: not-allowed;
+}
+
+/* Style pour le message de succès de la commande */
+.order-success {
+  text-align: center;
+  padding: 40px;
+  background-color: #d4edda; /* Vert clair */
+  border: 1px solid #c3e6cb;
+  border-radius: 12px;
+}
+
+.order-success h2 {
+  color: #155724; /* Vert foncé */
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.order-success p {
+  color: #155724;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.order-success .btn-confirm { /* Style spécifique pour le bouton de retour après succès */
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007bff; /* Bleu */
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.order-success .btn-confirm:hover {
+  background-color: #0056b3;
+}
+
+/* Media queries pour la responsivité (exemple pour les petits écrans) */
+@media (max-width: 768px) {
+  .cart-item {
+      flex-direction: column; /* Empile les éléments sur les petits écrans */
+      align-items: flex-start;
+  }
+
+  .item-image {
+      width: 80px;
+      height: 80px;
+      margin-right: 0;
+      margin-bottom: 10px;
+  }
+
+  .remove-item {
+      position: static; /* Le bouton reste dans le flux */
+      margin-left: 0;
+      margin-top: 10px;
+  }
+
+  .cart-actions {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .checkout-modal {
+      width: 95%;
+  }
 }

@@ -1,0 +1,140 @@
+.chat-wrapper {
+  margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+  }
+  
+  .quick-chat-container .toggle-button {
+    background: hsl(120, 52%, 15%);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .toggle-button:hover {
+    background: #233128;
+    transform: scale(1.05);
+  }
+  
+  .quick-chat {
+    width: 320px;
+    border: 1px solid #555151;
+    border-radius: 10px;
+    padding: 15px;
+    background: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    transition: transform 0.3s ease-out;
+    transform: translateY(0);
+    animation: slideIn 0.5s ease-out;
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .chat-box {
+    height: 250px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .message {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 14px;
+    max-width: 80%;
+    word-wrap: break-word;
+    transition: background-color 0.3s ease;
+  }
+  
+  .message.user {
+    background-color: #dcf8c6;
+    text-align: right;
+    margin-left: 200px;
+    margin-bottom: 20px;
+    animation: fadeInUser 0.5s ease;
+  }
+  
+  @keyframes fadeInUser {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .message.bot {
+    background-color: #f1f1f1;
+    text-align: left;
+    animation: fadeInBot 0.5s ease;
+  }
+  
+  @keyframes fadeInBot {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+    .input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+  }
+    .input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-area input:focus {
+    border-color: #2c7be5;
+  }
+  
+  .input-area button {
+    padding: 8px 16px;
+    background: #2c7be5;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .input-area button:hover {
+    background: #1a5bb8;
+    transform: scale(1.05);
+  }
+  
+  /* Effet de disparition du chat */
+  .quick-chat.hidden {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  

@@ -1,0 +1,40 @@
+.star-rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    gap: 4px;
+    color: #ffc107; /* couleur jaune dorée pour les étoiles */
+    position: relative;
+  }
+  
+  .star {
+    cursor: default;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .star-rating.editable .star {
+    cursor: pointer;
+  }
+  
+  .star-rating.editable .star:hover {
+    transform: scale(1.2);
+  }
+  
+  .full-star {
+    color: #ffc107;
+  }
+  
+  .half-star {
+    color: #ffc107;
+  }
+  
+  .empty-star {
+    color: #e4e5e9;
+  }
+  
+  .rating-value {
+    margin-left: 8px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  

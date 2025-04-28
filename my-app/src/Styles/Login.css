@@ -36,18 +36,7 @@ a {
   min-height: 685px;
 }
 
-.login-wrap::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120%;
-  background-size: cover;
-  background-position: center;
-  filter: blur(5px);
-  z-index: -1;
-}
+
 
 .login-html {
   width: 90%;

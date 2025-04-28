@@ -1,4 +1,3 @@
-// migrations/XXXXXXXXXXXXXX-create-products.js
 'use strict';
 
 module.exports = {

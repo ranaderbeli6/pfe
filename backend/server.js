@@ -90,6 +90,9 @@ app.use('/api/products', require('./Routes/produitRoutes'));
 app.use('/api/users', require('./Routes/userRoutes'));
 app.use('/api/services', require('./Routes/serviceRoutes'));
 app.use('/api/cart', require('./Routes/cartRoutes'));
+app.use('/api/avis', require('./Routes/avisRoutes'));
+app.use('/api/orders', require('./Routes/orderRoutes'));
+app.use('/api/stats', require('./Routes/statfournisseurRoutes'));
 
 // Gestion des erreurs
 app.use((req, res, next) => {
@@ -112,10 +115,16 @@ async function startServer() {
     await sequelize.sync({ force: false });
     console.log('✅ Modèles synchronisés avec la base de données');
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`);
-      console.log(`Environnement: ${process.env.NODE_ENV || 'development'}`);
-    });
+   
+  app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    const newPort = PORT + 1;
+    console.log(`Port ${PORT} en cours d'utilisation, tentative sur ${newPort}...`);
+    app.listen(newPort);
+  }
+});
   } catch (error) {
     console.error('💥 Erreur lors du démarrage:', error);
     process.exit(1);

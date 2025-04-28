@@ -76,7 +76,7 @@ exports.updateService = async (req, res) => {
     const { nom, prix, description, disponibilite } = req.body;
     const image = req.file ? req.file.filename : service.image;
 
-    await service.update({ nom, prix, description, image, disponibilite }); // disponibilité ajoutée
+    await service.update({ nom, prix, description, image, disponibilite }); 
 
     res.status(200).json(service);
   } catch (error) {

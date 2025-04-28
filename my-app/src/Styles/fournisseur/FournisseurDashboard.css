@@ -45,27 +45,28 @@ body::before {
 }
 
 .dashboard-content .add-product-btn {
-  background-color: #5c9556;
+  background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
 }
 .dashboard-content .add-product-btn:hover {
-  background-color: #125016;
   transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
 }
 
 .dashboard-content .delete-selected-btn {
-  background-color: #f44336;
+  background-color: #e53935;
+
   color: white;
 }
 .dashboard-content .delete-selected-btn:hover {
-  background-color: #e53935;
   transform: scale(1.05);
+  background-color: #710d06;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .dashboard-content .edit-btn {
-  background-color: #2196F3;
+  background-color: #047ddf;
   color: white;
 }
 .dashboard-content .edit-btn:hover {
@@ -74,12 +75,13 @@ body::before {
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
+
 .dashboard-content .delete-btn {
-  background-color: #ff5722;
+  background-color: #ed5454;
   color: white;
 }
 .dashboard-content .delete-btn:hover {
-  background-color: #e64a19;
+  background-color: rgb(231, 90, 47);
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }

@@ -1,4 +1,3 @@
-/* Variables CSS */
 :root {
     --primary: #000501fc;
     --primary-light: #004a0421;
@@ -8,7 +7,6 @@
     --transition: all 0.3s ease;
   }
   
-  /* Base Styles */
   .about-container {
     font-family: 'Poppins', sans-serif;
     color: var(--dark);
@@ -17,7 +15,19 @@
     min-height: 100vh;
   }
   
-  .about-hero {
+  .ab{
+  background: linear-gradient(135deg, var(--primary), #4caf50);
+  color: white;
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  }
+  .ab h1{color: white;}
+  .ab p{
+    color: white;
+  }
+  .ab {
     background: linear-gradient(135deg, var(--primary), #4caf50);
     color: white;
     padding: 5rem 2rem;
@@ -25,8 +35,7 @@
     position: relative;
     overflow: hidden;
   }
-  
-  .about-hero::before {
+  .ab::before {
     content: '';
     position: absolute;
     top: 0;
@@ -66,7 +75,6 @@
     z-index: 2;
   }
   
-  /* Cards Grid */
   .about-card {
     background: white;
     border-radius: 12px;
@@ -104,7 +112,6 @@
     margin-bottom: 1.5rem;
     color: var(--primary);
   }
-  
   .about-card h2 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
@@ -135,7 +142,6 @@
     font-weight: bold;
   }
   
-  /* Team Section */
   .about-team {
     text-align: center;
     margin: 4rem 0;
@@ -212,8 +218,9 @@
     font-size: 2.2rem;
     margin-bottom: 2rem;
   }
-  
-/* Ajouter la spécificité en ciblant l'élément contenant */
+  .aboutsec h2{
+    color: white;
+  }
 .about-container .cta-button {
     background: #f8eeee;
     color: var(--primary);

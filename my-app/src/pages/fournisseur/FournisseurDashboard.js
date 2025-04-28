@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import Headerfournisseur from '../../components/fournisseur/Headerfournisseur';
 import '../../Styles/fournisseur/FournisseurDashboard.css';
-import Header from '../../components/Header';
 function FournisseurDashboard() {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -11,7 +9,7 @@ function FournisseurDashboard() {
   const [success, setSuccess] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-  const [stockFilter, setStockFilter] = useState(''); // Ajout du filtre stock
+  const [stockFilter, setStockFilter] = useState(''); 
   const navigate = useNavigate();
 
   const categories = [
@@ -40,14 +38,12 @@ function FournisseurDashboard() {
     fetchFournisseurProducts();
   }, []);
 
-  // Sélectionner/Désélectionner un produit
   const handleSelect = (id) => {
     setSelectedProducts((prevSelected) =>
       prevSelected.includes(id) ? prevSelected.filter((productId) => productId !== id) : [...prevSelected, id]
     );
   };
 
-  // Sélectionner/Désélectionner tous les produits
   const handleSelectAll = () => {
     if (selectedProducts.length === products.length) {
       setSelectedProducts([]);
@@ -56,8 +52,6 @@ function FournisseurDashboard() {
     }
   };
 
-  // Supprimer plusieurs produits sélectionnés
-  // Fonction de suppression d'un seul produit
 const handleDeleteProduct = async (id) => {
   try {
     await axios.delete(`http://localhost:5000/api/products/produits/${id}`, {
@@ -70,7 +64,6 @@ const handleDeleteProduct = async (id) => {
     setError(`Erreur lors de la suppression : ${err.response?.data?.message || err.message}`);
   }
 };
-// Modification de la fonction de suppression multiple
 const handleDeleteSelected = async () => {
   if (selectedProducts.length === 0) {
     setError('Aucun produit sélectionné.');
@@ -92,7 +85,6 @@ const handleDeleteSelected = async () => {
 
 
 
-  // Filtrer les produits par nom, catégorie et stock
   const filteredProducts = products.filter((product) => {
     const matchesSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = categoryFilter ? product.category === categoryFilter : true;
@@ -108,9 +100,7 @@ const handleDeleteSelected = async () => {
           Ajouter un Produit
         </Link>
 
-        {/* Zone de filtres : Stock + Catégorie */}
         <div className="filter-container">
-          {/* Filtre Stock */}
           <select
             value={stockFilter}
             onChange={(e) => setStockFilter(e.target.value)}
@@ -121,7 +111,6 @@ const handleDeleteSelected = async () => {
             <option value="disponible">Stock Disponible</option>
           </select>
 
-          {/* Recherche */}
           <input
             type="text"
             placeholder="Rechercher par nom de produit"
@@ -130,7 +119,6 @@ const handleDeleteSelected = async () => {
             className="search-input"
           />
 
-          {/* Filtre Catégorie */}
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
@@ -145,18 +133,15 @@ const handleDeleteSelected = async () => {
           </select>
         </div>
 
-        {/* Bouton de suppression des produits sélectionnés */}
         {selectedProducts.length > 0 && (
           <button className="delete-selected-btn" onClick={handleDeleteSelected}>
             Supprimer les produits sélectionnés
           </button>
         )}
 
-        {/* Affichage des messages d'erreur ou de succès */}
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
 
-        {/* Tableau des produits */}
         <div className="product-table">
           <table>
             <thead>
@@ -200,9 +185,8 @@ const handleDeleteSelected = async () => {
                         Modifier
                       </button>
                       <button onClick={() => handleDeleteProduct(product.id)} className="delete-btn">
-  Supprimer
-</button>
-
+                  Supprimer
+                </button>
                     </td>
                   </tr>
                 ))

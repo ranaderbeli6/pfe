@@ -25,14 +25,6 @@ module.exports = {
           key: 'id'
         }
       },
-      serviceId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        references: {
-          model: 'services',
-          key: 'id'
-        }
-      },
       cartId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -41,10 +33,6 @@ module.exports = {
           key: 'id'
         },
         onDelete: 'CASCADE'
-      },
-      itemType: {
-        type: Sequelize.ENUM('product', 'service'),
-        allowNull: false
       },
       createdAt: {
         type: Sequelize.DATE,

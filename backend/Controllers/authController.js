@@ -258,4 +258,73 @@ async function updateUser(req, res) {
   }
 }
 
-module.exports = { register, login, getUserInfo, sendPasswordResetEmail, resetPassword, logout, updateUser, inviteAdmin };
+
+
+
+async function getMyAccount(req, res) {
+  try {
+    const user = await User.findByPk(req.user.id, {
+      attributes: { exclude: ['password', 'resetPasswordToken', 'resetPasswordTokenExpiration'] }
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur interne serveur.' });
+  }
+}
+
+async function updateMyAccount(req, res) {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+
+    const { fullName, phoneNumber, address, description, currentPassword, password } = req.body;
+
+    if (password) {
+      if (!currentPassword) {
+        return res.status(400).json({ message: 'Le mot de passe actuel est requis' });
+      }
+    
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Mot de passe actuel incorrect' });
+      }
+    
+      if (password.length < 8) {
+        return res.status(400).json({ message: 'Le nouveau mot de passe doit contenir au moins 8 caractères' });
+      }
+    
+      user.password = await bcrypt.hash(password, 12);
+    }
+    
+
+
+    if (fullName) user.fullName = fullName;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    
+    if (user.role === 'acheteur' && address) user.address = address;
+    if (user.role === 'fournisseur' && description) user.description = description;
+
+    await user.save();
+
+    const userData = user.toJSON();
+    delete userData.password;
+
+    res.status(200).json({ 
+      message: 'Informations mises à jour avec succès',
+      user: userData
+    });
+
+  } catch (error) {
+    console.error('Erreur updateMyAccount:', error);
+    res.status(500).json({ 
+      message: 'Erreur interne serveur',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+}
+
+module.exports = { register, login, getUserInfo, sendPasswordResetEmail, resetPassword, logout, updateUser, inviteAdmin ,getMyAccount,updateMyAccount};

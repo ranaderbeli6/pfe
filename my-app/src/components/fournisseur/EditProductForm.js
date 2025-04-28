@@ -92,12 +92,9 @@ function EditProductForm() {
               </option>
             ))}
           </select>
-          <input
-            type="text"
-            placeholder="URL de l'image"
-            value={formData.image}
-            onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-          />
+         <br></br>
+         <br></br>
+
           <button type="submit">Enregistrer</button>
         </form>
       </div>

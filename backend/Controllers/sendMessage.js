@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
-const User = require('../Models/User');
 
 async function sendMessage(req, res) {
   const errors = validationResult(req);
@@ -13,47 +11,37 @@ async function sendMessage(req, res) {
   }
 
   try {
-    const { subject, message } = req.body;
+    const { name, email, subject, message } = req.body;
 
-    if (!subject || !message || typeof subject !== 'string' || typeof message !== 'string') {
+    // Validation des champs
+    if (!name || !email || !subject || !message) {
       return res.status(400).json({ 
         success: false,
-        message: 'Le sujet et le message doivent être des chaînes de caractères valides.' 
+        message: 'Tous les champs sont obligatoires.' 
       });
     }
 
-    if (subject.length > 100 || message.length > 1000) {
+    if (typeof name !== 'string' || typeof email !== 'string' || 
+        typeof subject !== 'string' || typeof message !== 'string') {
       return res.status(400).json({ 
         success: false,
-        message: 'Le sujet ne doit pas dépasser 100 caractères et le message 1000 caractères.' 
+        message: 'Tous les champs doivent être des chaînes de caractères valides.' 
       });
     }
 
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ 
+    if (name.length > 100 || email.length > 100 || 
+        subject.length > 100 || message.length > 1000) {
+      return res.status(400).json({ 
         success: false,
-        message: 'Authentification requise. Token manquant ou mal formaté.' 
+        message: 'Limites de caractères dépassées (nom: 100, email: 100, sujet: 100, message: 1000).' 
       });
     }
 
-    const token = authHeader.split(' ')[1];
-    
-    let decoded;
-    try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
-    } catch (jwtError) {
-      return res.status(401).json({ 
+    // Validation simple de l'email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ 
         success: false,
-        message: 'Token invalide ou expiré.' 
-      });
-    }
-
-    const user = await User.findByPk(decoded.id);
-    if (!user) {
-      return res.status(404).json({ 
-        success: false,
-        message: 'Utilisateur non trouvé.' 
+        message: 'Veuillez fournir une adresse email valide.' 
       });
     }
 
@@ -66,21 +54,21 @@ async function sendMessage(req, res) {
       tls: {
         rejectUnauthorized: false 
       },
-      pool: true, 
+      pool: true,
       maxConnections: 1,
       rateLimit: 1 
     });
 
     const mailOptions = {
-      from: `"${user.fullName}" <${process.env.EMAIL_USER}>`,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: 'ranaderbeli76@gmail.com',
-      replyTo: user.email, 
-      subject: `Nouveau message: ${subject}`,
-      text: `De: ${user.fullName} (${user.email})\n\nMessage:\n${message}`,
+      replyTo: email,
+      subject: `Nouveau message de contact: ${subject}`,
+      text: `De: ${name} (${email})\n\nMessage:\n${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-          <h2 style="color: #2c3e50;">Nouveau message de ${user.fullName}</h2>
-          <p><strong>Email:</strong> ${user.email}</p>
+          <h2 style="color: #2c3e50;">Nouveau message de ${name}</h2>
+          <p><strong>Email:</strong> ${email}</p>
           <p><strong>Sujet:</strong> ${subject}</p>
           <div style="margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #3498db;">
             <p style="white-space: pre-line;">${message}</p>

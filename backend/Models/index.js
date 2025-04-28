@@ -13,38 +13,72 @@ const sequelize = new Sequelize(
   }
 );
 
+// Imports
 const User = require('./User');
 const Produit = require('./Produit');
 const Service = require('./Service'); 
 const Cart = require('./Cart');
 const CartItem = require('./CartItem');
 const Order = require('./Order');
-
+const Avis = require('./Avis');
+const OrderItem = require('./OrderItem');
+// Associations
 
 User.hasMany(Produit, { foreignKey: 'userId' });
 Produit.belongsTo(User, { foreignKey: 'userId' });
+
+// Service et User
 User.hasMany(Service, { foreignKey: 'userId' });
 Service.belongsTo(User, { foreignKey: 'userId' });
+
+// Cart et User
 User.hasMany(Cart, { foreignKey: 'userId' });
 Cart.belongsTo(User, { foreignKey: 'userId' });
+
+// Cart et CartItem
 Cart.hasMany(CartItem, { 
   foreignKey: 'cartId',
   onDelete: 'CASCADE',
   as: 'items'
 });
 CartItem.belongsTo(Cart, { foreignKey: 'cartId' });
+
 Produit.hasMany(CartItem, { 
   foreignKey: 'productId',
   onDelete: 'CASCADE'
 });
 CartItem.belongsTo(Produit, { foreignKey: 'productId' });
+
+// Order et User
 User.hasMany(Order, { foreignKey: 'userId' });
 Order.belongsTo(User, { foreignKey: 'userId' });
+
+// Order et Cart
 Cart.hasOne(Order, { foreignKey: 'cartId' });
 Order.belongsTo(Cart, { foreignKey: 'cartId' });
 
 
+Order.hasMany(OrderItem, {
+  foreignKey: 'orderId',
+  as: 'items',
+  onDelete: 'CASCADE'
+});
+OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
 
+// Produit <--> OrderItem
+Produit.hasMany(OrderItem, { foreignKey: 'productId' });
+OrderItem.belongsTo(Produit, { foreignKey: 'productId' });
+
+// User (fournisseur) <--> OrderItem
+User.hasMany(OrderItem, { foreignKey: 'fournisseurId', as: 'FournisseurItems' });
+OrderItem.belongsTo(User, { foreignKey: 'fournisseurId', as: 'Fournisseur' });
+
+
+User.hasMany(Avis, { foreignKey: 'userId', as: 'avis' });
+Avis.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
+Produit.hasMany(Avis, { foreignKey: 'produitId', as: 'avis' });
+Avis.belongsTo(Produit, { foreignKey: 'produitId', as: 'produit' });
 
 (async () => {
   try {
@@ -67,5 +101,7 @@ module.exports = {
   Service, 
   Cart,
   CartItem,
-  Order
+  Order,
+  OrderItem, 
+  Avis
 };

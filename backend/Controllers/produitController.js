@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 const Produit = require('../Models/Produit');
 const path = require('path');
 const CartItem = require('../Models/CartItem');
-
+const Avis = require('../Models/Avis');
 exports.getProduits = async (req, res) => {
   try {
       console.log('Utilisateur connecté:', req.user); 
@@ -14,6 +14,8 @@ exports.getProduits = async (req, res) => {
       console.error('Erreur serveur:', error);
       res.status(500).json({ message: "Erreur serveur", error });
   }
+ 
+  
 };
 exports.getProduitsFournisseur = async (req, res) => {
   try {
@@ -43,7 +45,6 @@ exports.addProduit = async (req, res) => {
   }
 
   try {
-    // Création du produit avec le statut "en_attente"
     const produit = await Produit.create({
       name,
       price,
@@ -52,7 +53,7 @@ exports.addProduit = async (req, res) => {
       category,
       image,
       userId: fournisseurId,
-      status: 'en_attente',  // Statut "en_attente" par défaut
+      status: 'en_attente',  
     });
 
     res.status(201).json({ message: 'Produit ajouté avec succès, en attente de validation.', produit });
@@ -62,12 +63,10 @@ exports.addProduit = async (req, res) => {
   }
 };
 
-// recup produits selon statut
 exports.getProduitsParStatut = async (req, res) => {
-  const { statut } = req.params;  // "en_attente", "approuvé", ou "refusé"
+  const { statut } = req.params;  
 
   try {
-    // Vérification de la validité du statut
     if (!['en_attente', 'approuvé', 'refusé'].includes(statut)) {
       return res.status(400).json({ message: 'Statut invalide.' });
     }
@@ -79,10 +78,13 @@ exports.getProduitsParStatut = async (req, res) => {
     console.error('Erreur serveur:', error);
     res.status(500).json({ message: "Erreur serveur", error });
   }
+  if (produits.length === 0) {
+    return res.status(200).json([]);
+  }
+  
 };
 
 
-// recup tous 
 exports.getProduitsApprouves = async (req, res) => {
   try {
     const produits = await Produit.findAll({ where: { status: 'approuvé' } });
@@ -128,7 +130,6 @@ exports.updateProduit = async (req, res) => {
 
 exports.deleteProduit = async (req, res) => {
   const produitId = req.params.id;
-  const fournisseurId = req.user.id;
 
   try {
     const produit = await Produit.findOne({ where: { id: produitId } });
@@ -137,9 +138,7 @@ exports.deleteProduit = async (req, res) => {
       return res.status(404).json({ message: 'Produit non trouvé.' });
     }
 
-    if (produit.userId !== fournisseurId) {
-      return res.status(403).json({ message: 'Accès interdit : produit non associé à ce fournisseur.' });
-    }
+$
 
     await produit.destroy();
     res.status(200).json({ message: 'Produit supprimé avec succès.' });
@@ -211,7 +210,7 @@ exports.getProduitsEnAttente = async (req, res) => {
     const produitsEnAttente = await Produit.findAll({ where: { status: 'en_attente' } });
 
     if (!produitsEnAttente || produitsEnAttente.length === 0) {
-      return res.status(404).json({ message: 'Aucun produit en attente trouvé' });
+      return res.status(200).end(); 
     }
 
     res.status(200).json(produitsEnAttente);
@@ -220,6 +219,7 @@ exports.getProduitsEnAttente = async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
 };
+
 
 
 exports.accepterProduit = async (req, res) => {
@@ -293,6 +293,47 @@ exports.refuserProduit = async (req, res) => {
     console.error('Erreur lors du refus du produit:', error);
     res.status(500).json({ 
       message: 'Erreur lors du refus du produit', 
+      error: error.message 
+    });
+  }
+};
+
+exports.getTopRatedProducts = async (req, res) => {
+  try {
+    const topProducts = await Produit.findAll({
+      where: { status: 'approuvé' },
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(`(
+              SELECT AVG(note)
+              FROM avis
+              WHERE avis.produitId = Produit.id
+            )`),
+            'averageRating'
+          ],
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(id)
+              FROM avis
+              WHERE avis.produitId = Produit.id
+            )`),
+            'reviewCount'
+          ]
+        ]
+      },
+      order: [
+        [Sequelize.literal('averageRating'), 'DESC'],
+        [Sequelize.literal('reviewCount'), 'DESC']
+      ],
+      limit: 8
+    });
+
+    res.status(200).json(topProducts);
+  } catch (error) {
+    console.error('Erreur:', error);
+    res.status(500).json({ 
+      message: 'Erreur serveur',
       error: error.message 
     });
   }

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-
 function verifyToken(req, res, next) {
   const token = req.headers['authorization']?.split(' ')[1];
 
@@ -13,7 +12,10 @@ function verifyToken(req, res, next) {
       return res.status(403).json({ message: 'Token invalide.' });
     }
 
-    req.user = decoded; 
+    req.user = { 
+      id: decoded.id, 
+      role: decoded.role 
+    }; 
     next(); 
   });
 }

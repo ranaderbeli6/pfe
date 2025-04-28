@@ -227,17 +227,27 @@ const updateCartItemQuantity = async (req, res) => {
 const clearCart = async (req, res) => {
   try {
     const cart = await getOrCreateCart(req);
+    const cartItems = await CartItem.findAll({ where: { cartId: cart.id } });
+
+    for (const cartItem of cartItems) {
+      const product = await Produit.findByPk(cartItem.productId);
+      if (product) {
+        product.stock += cartItem.quantity;
+        await product.save();
+      }
+    }
+
     await CartItem.destroy({ where: { cartId: cart.id } });
 
     res.status(200).json({
       success: true,
-      message: 'Panier vidé avec succès'
+      message: 'Panier vidé et stock mis à jour avec succès'
     });
   } catch (err) {
     console.error('Clear Cart Error:', err);
     res.status(500).json({
       success: false,
-      message: 'Erreur lors du vidage du panier',
+      message: 'Erreur lors du vidage du panier et de la mise à jour du stock',
       error: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
   }

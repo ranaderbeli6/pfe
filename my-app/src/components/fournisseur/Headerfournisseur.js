@@ -26,7 +26,9 @@ const Headerfournisseur = () => {
       <div className="header-fournisseur-features-container">
         <button onClick={() => navigate("/fournisseur/produits")}>Gestion des Produits</button>
         <button onClick={() => navigate("/fournisseur/services")}>Gestion des Services</button>
-        <button onClick={() => navigate("/suivi-ventes-avis")}>Suivi des Ventes & Avis</button>
+        <button onClick={() => navigate("/fournisseur/suivi-ventes-avis")}>Suivi des Ventes & Avis</button>
+        <button onClick={() => navigate("fournisseur/acheteur")}>Vos commandes</button>
+
       </div>
     </div>
   );

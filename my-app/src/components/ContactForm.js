@@ -26,10 +26,6 @@ const ContactForm = () => {
   
     try {
       const response = await axios.post('http://localhost:5000/api/contact/send', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
       });
   
       if (response.data.success) {

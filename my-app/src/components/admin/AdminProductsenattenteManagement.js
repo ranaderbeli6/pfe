@@ -8,6 +8,18 @@ const AdminProductsManagement = () => {
   const [activeFilter, setActiveFilter] = useState('en_attente');
   const [message, setMessage] = useState({ text: '', type: '' });
 
+  const categories = [
+    "Semences",
+    "Engrais et Fertilisants",
+    "Matériels Agricoles",
+    "Produits Phytosanitaires",
+    "Alimentation Animale",
+    "Élevage",
+    "Serres et Irrigation",
+    "Bois et Plantes",
+    "Autres"
+  ];
+
   useEffect(() => {
     const fetchProduits = async () => {
       try {
@@ -28,7 +40,6 @@ const AdminProductsManagement = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
-        // Filtrer les produits selon le statut
         const data = activeFilter === 'approuvé' 
           ? response.data.filter(p => p.status === 'approuvé')
           : response.data;
@@ -84,8 +95,10 @@ const AdminProductsManagement = () => {
   };
 
   const supprimerProduit = async (id) => {
-    if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) return;
-    
+    // Confirmation avant suppression
+    const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');
+    if (!confirmDelete) return;
+
     try {
       await axios.delete(`http://localhost:5000/api/products/produits/${id}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
@@ -94,20 +107,21 @@ const AdminProductsManagement = () => {
       setProduits(prev => prev.filter(p => p.id !== id));
       showMessage('Produit supprimé avec succès', 'success');
     } catch (error) {
-      showMessage('Erreur lors de la suppression du produit', 'error');
-      console.error(error);
+      let errorMessage = 'Erreur lors de la suppression du produit';
+      
+      if (error.response) {
+        errorMessage = error.response.data.message || errorMessage;
+      } else if (error.request) {
+        errorMessage = 'Pas de réponse du serveur';
+      }
+      
+      showMessage(errorMessage, 'error');
+      console.error('Erreur détaillée:', error);
     }
   };
 
   return (
     <div className="admin-products-container">
-      <h1 className="admin-title">Gestion des Produits</h1>
-      <p className="admin-description">
-        Vous pouvez gérer ici tous les produits. 
-        {activeFilter === 'en_attente' && ' Approuvez ou refusez les nouveaux produits soumis.'}
-        {activeFilter === 'approuvé' && ' Modifiez ou supprimez les produits approuvés.'}
-      </p>
-
       <div className="filter-buttons">
         <button 
           className={`filter-btn ${activeFilter === 'en_attente' ? 'active' : ''}`}
@@ -166,31 +180,26 @@ const AdminProductsManagement = () => {
                           <button 
                             onClick={() => accepterProduit(produit.id)}
                             className="action-btn approve-btn"
+                            title="Accepter le produit"
                           >
                             Accepter
                           </button>
                           <button 
                             onClick={() => refuserProduit(produit.id)}
                             className="action-btn reject-btn"
+                            title="Refuser le produit"
                           >
                             Refuser
                           </button>
                         </>
                       ) : (
-                        <>
-                          <button 
-                            onClick={() => console.log('Modifier', produit.id)}
-                            className="action-btn edit-btn"
-                          >
-                            Modifier
-                          </button>
-                          <button 
-                            onClick={() => supprimerProduit(produit.id)}
-                            className="action-btn delete-btn"
-                          >
-                            Supprimer
-                          </button>
-                        </>
+                        <button 
+                          onClick={() => supprimerProduit(produit.id)}
+                          className="action-btn delete-btn"
+                          title="Supprimer le produit"
+                        >
+                          Supprimer
+                        </button>
                       )}
                     </td>
                   </tr>

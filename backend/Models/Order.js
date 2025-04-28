@@ -1,4 +1,3 @@
-// models/Order.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -10,11 +9,11 @@ const Order = sequelize.define('Order', {
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: true // Pour les commandes sans compte
+    allowNull: true 
   },
   sessionId: {
     type: DataTypes.STRING,
-    allowNull: true // Pour les utilisateurs connectés
+    allowNull: true 
   },
   totalAmount: {
     type: DataTypes.FLOAT,
@@ -38,15 +37,20 @@ const Order = sequelize.define('Order', {
   },
   contactEmail: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true ,
     validate: {
       isEmail: true
     }
   },
   contactPhone: {
     type: DataTypes.STRING,
-    allowNull: false
-  }
+    allowNull: true 
+  },
+  buyerName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  
 }, {
   tableName: 'orders',
   timestamps: true

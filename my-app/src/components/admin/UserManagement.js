@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../../Styles/admin/UserManagement.css";
-import { Link } from 'react-router-dom'; // Ajout de Link pour la navigation
+import { Link } from 'react-router-dom'; 
 import HeaderAdmin from './HeaderAdmin';
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -101,7 +101,6 @@ const UserManagement = () => {
     <div className="user-management-container">
       <div className="header-section">
         <h2>Gestion des utilisateurs</h2>
-        {/* Ajout du lien vers le formulaire d'ajout d'utilisateur */}
         <Link to="/admin/add-user" className="add-btn">
           + Ajouter un admin
         </Link>
@@ -148,9 +147,7 @@ const UserManagement = () => {
               <td>{user.role}</td>
               <td>
                 <button onClick={() => deleteUser(user.id)}>Supprimer</button>
-                <button onClick={() => updateUser(user.id, { fullName: 'NouveauNom' })}>
-                  Modifier
-                </button>
+              
               </td>
             </tr>
           ))}

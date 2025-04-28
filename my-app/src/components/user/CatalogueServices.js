@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import '../../Styles/user/Catalogue.css';
+import '../../Styles/user/Catalogueservice.css';
 import Header from '../Header';
 import defaultImage from '../../images/serviceagricole.png'; 
 
@@ -45,7 +45,6 @@ const Catalogue = () => {
         {error && <p>{error}</p>}
   
         <div className="catalogue">
-          <h2>Nos Services</h2>
           <div className="services-list">
             {filteredServices.length > 0 ? (
               filteredServices.map(service => (
