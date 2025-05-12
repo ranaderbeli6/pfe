@@ -1,0 +1,137 @@
+/* Global styling for the dashboard */
+.dashboard-container {
+  margin-top: 180px;
+  display: flex;
+  max-height: 80vh;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f9;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 220px;
+  background-color: #1f2937; /* Dark gray/blue */
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column; /* Arrange elements vertically */
+  align-items: stretch; /* Make children take full width */
+}
+
+.sidebar h3 {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 20px; /* Reduced margin */
+  text-align: center;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 15px; /* Increased padding */
+}
+
+/* Style for the "Exporter vers Excel" button */
+.sidebar button {
+  background-color: #3b82f6; /* Blue button */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 20px; /* Space before the list */
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #2563eb;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 12px 20px;
+  margin-bottom: 8px; /* Reduced margin */
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: #374151;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: #4b5563;
+}
+
+.sidebar li.active {
+  background-color: #2563eb; /* blue */
+  color: white;
+}
+
+.sidebar li span {
+  margin-left: 10px;
+}
+
+/* Styling for the content area (main dashboard) */
+.content {
+  flex: 1;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Table styling for content inside each tab */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+table th {
+  background-color: #f1f5f9;
+  color: #374151;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+table tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* Add a nice shadow around the table to improve contrast */
+table {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Active tab styling */
+.sidebar li.active {
+  background-color: #2563eb; /* blue */
+  color: white;
+}
+
+/* Spinner for loading state */
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+.spinner:before {
+  content: "⏳"; /* Simple loading icon */
+  margin-right: 10px;
+}

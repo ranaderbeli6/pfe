@@ -22,7 +22,9 @@ const CartItem = require('./CartItem');
 const Order = require('./Order');
 const Avis = require('./Avis');
 const OrderItem = require('./OrderItem');
-// Associations
+const Facture = require('./Facture');
+const LigneFacture = require('./LigneFacture');
+const Promotion =require('./Promotion');
 
 User.hasMany(Produit, { foreignKey: 'userId' });
 Produit.belongsTo(User, { foreignKey: 'userId' });
@@ -80,6 +82,37 @@ Avis.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 Produit.hasMany(Avis, { foreignKey: 'produitId', as: 'avis' });
 Avis.belongsTo(Produit, { foreignKey: 'produitId', as: 'produit' });
 
+
+//facture
+
+Facture.belongsTo(Order, { foreignKey: 'OrderId' });
+Facture.belongsTo(User, { foreignKey: 'userId', as: 'Client' });
+Facture.belongsTo(User, { foreignKey: 'fournisseurId', as: 'Fournisseur' });
+
+Facture.hasMany(LigneFacture, { foreignKey: 'factureId' });
+
+Facture.hasMany(LigneFacture, { foreignKey: 'factureId', onDelete: 'CASCADE' });
+LigneFacture.belongsTo(Facture, { foreignKey: 'factureId' });
+
+
+Promotion.belongsTo(Produit, {
+  foreignKey: 'produit_id',
+  as: 'produit',
+  onDelete: 'CASCADE' // Si le produit est supprimé, sa promotion aussi
+});
+
+// Association Produit -> Promotion (One-to-Many)
+Produit.hasMany(Promotion, {
+  foreignKey: 'produit_id',
+  as: 'promotions'
+});
+
+// Association Promotion -> User (Admin qui a créé la promo)
+Promotion.belongsTo(User, {
+  foreignKey: 'created_by',
+  as: 'admin'
+});
+
 (async () => {
   try {
     await sequelize.authenticate();
@@ -103,5 +136,7 @@ module.exports = {
   CartItem,
   Order,
   OrderItem, 
-  Avis
+  Avis,
+  Facture,
+  LigneFacture 
 };

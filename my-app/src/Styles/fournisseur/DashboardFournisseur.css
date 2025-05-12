@@ -6,11 +6,10 @@
   background-color: #f4f6f9;
 }
 
-/* Sidebar styling */
 .sidebar {
 
   width: 220px;
-  background-color: #1f2937; /* dark gray/blue */
+  background-color: #1f2937; 
   color: white;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -46,14 +45,12 @@
 }
 
 .sidebar li.active {
-  background-color: #2563eb; /* blue */
+  background-color: #2563eb; 
 }
-
 .sidebar li span {
   margin-left: 10px;
 }
 
-/* Main content styling */
 .content {
   flex: 1;
   padding: 40px;

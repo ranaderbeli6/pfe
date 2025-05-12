@@ -104,7 +104,7 @@
   font-weight: bold;
 }
 
-.product-description {
+.product-info .product-description {
   line-height: 1.6;
   font-size: 1rem;
   color: #ffffff;
@@ -114,7 +114,7 @@
   margin-top: 1rem;
 }
 
-.add-to-cart {
+.product-info .add-to-cart {
   background-color: var(--primary-color);
   color: white;
   padding: 0.7rem 1.4rem;
@@ -125,8 +125,8 @@
   transition: background 0.3s ease;
 }
 
-.add-to-cart:hover {
-  background-color: #1a252f;
+.product-info  .add-to-cart:hover {
+  background-color:#27ae60;
 }
 
 .reviews-section {

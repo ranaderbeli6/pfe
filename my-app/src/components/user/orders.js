@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../Styles/user/Orders.css';
 import defaultImage from '../../images/aa.jpg';
 import Header from '../Header';
-
+import Factures from './Factures ';
 const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
@@ -131,6 +131,13 @@ const Orders = () => {
                             <span 
                                 className="link-to-cart" 
                                 onClick={() => navigate('/panier')}
+                            >
+                                Cliquez
+                            </span>.
+                            <strong>Besoin de consulter vos factures ?</strong>{' '}
+                            <span 
+                                className="link-to-cart" 
+                                onClick={() => navigate('/factures')}
                             >
                                 Cliquez
                             </span>.

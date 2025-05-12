@@ -18,4 +18,9 @@ router.put('/produits/refuser/:id', verifyToken, verifyRole(['admin', 'superadmi
 router.get('/top-rated', produitController.getTopRatedProducts);
 
 
+
+router.get('/recom',verifyToken, produitController.getRecommendedProducts);
+router.get('/allwithrecommended',verifyToken, produitController.getAllProductsWithRecommendations);
+
+
 module.exports = router;

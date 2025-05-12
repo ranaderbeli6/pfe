@@ -93,8 +93,9 @@ app.use('/api/cart', require('./Routes/cartRoutes'));
 app.use('/api/avis', require('./Routes/avisRoutes'));
 app.use('/api/orders', require('./Routes/orderRoutes'));
 app.use('/api/stats', require('./Routes/statfournisseurRoutes'));
-
-// Gestion des erreurs
+app.use('/api/factures', require('./Routes/factureRoute'));
+app.use('/api/statsadmin', require('./Routes/statadminRoutes'));
+app.use('/api/promotions', require('./Routes/promotionRoutes'));
 app.use((req, res, next) => {
   res.status(404).json({ error: 'Endpoint non trouvé' });
 });

@@ -1,0 +1,97 @@
+/* Styles spécifiques au composant Factures */
+
+.factures-container {
+    margin-top: 50px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.factures-container h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.factures-container .error {
+    color: #c0392b;
+    background-color: #fdecea;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #e74c3c;
+}
+
+.factures-container .sort-options {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.factures-container .sort-options label {
+    font-weight: bold;
+    color: #333;
+}
+
+.factures-container .sort-options select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.factures-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.factures-table th,
+.factures-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.factures-table th {
+    background-color: #f2f2f2;
+    color: #555;
+    font-weight: bold;
+}
+
+.factures-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.factures-table button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.factures-table button:hover {
+    background-color: #2980b9;
+}
+
+.factures-container p {
+    color: #777;
+    font-style: italic;
+}
+
+.factures-container .loading {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}

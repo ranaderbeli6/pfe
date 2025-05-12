@@ -76,25 +76,17 @@
   width: 100%;
 }
 
-/* Catalogue Dropdown Styles */
 .catalogue-dropdown {
   position: relative;
-  display: inline-block;
-}
-.header .catalogue-btn {
-  background: white;   background: white;
-  border: none;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #413f3f;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.3s;
+  display: flex;
+  align-items: center; 
 }
 
-
-
+.catalogue-btn {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
 .catalogue-btn:hover {
   color: #000000f1;
   transform: translateY(-2px);

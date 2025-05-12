@@ -3,20 +3,54 @@ const Produit = require('../Models/Produit');
 const path = require('path');
 const CartItem = require('../Models/CartItem');
 const Avis = require('../Models/Avis');
+const RecommendationEngine = require('../Services/recommendationEngine');
+
+// Initialisation au démarrage
+RecommendationEngine.initialize().catch(err => {
+    console.error('Erreur initialisation moteur:', err);
+});
+
+exports.getRecommendedProducts = async (req, res) => {
+    try {
+        const recommendedIds = await RecommendationEngine.getRecommendedProducts(req.user.id);
+        
+        const produits = await Produit.findAll({
+            where: { 
+                id: recommendedIds,
+                status: 'approuvé' 
+            }
+        });
+
+        res.json({
+            success: true,
+            data: produits
+        });
+    } catch (error) {
+        console.error('Erreur:', error);
+        res.status(500).json({
+            success: false,
+            message: "Erreur serveur"
+        });
+    }
+};
+
 exports.getProduits = async (req, res) => {
   try {
-      console.log('Utilisateur connecté:', req.user); 
+    const produits = await Produit.findAll({
+      where: { status: 'approuvé' },
+    });
 
-      const produits = await Produit.findAll({ where: { status: 'approuvé' } });
-      res.json(produits);
-
+    res.json(produits); // Renvoyez directement le tableau 'produits'
   } catch (error) {
-      console.error('Erreur serveur:', error);
-      res.status(500).json({ message: "Erreur serveur", error });
+    console.error('Erreur:', error);
+    res.status(500).json({
+      success: false,
+      message: "Erreur serveur"
+    });
   }
- 
-  
 };
+
+
 exports.getProduitsFournisseur = async (req, res) => {
   try {
       const produits = await Produit.findAll({ where: { userId: req.user.id } });
@@ -138,7 +172,6 @@ exports.deleteProduit = async (req, res) => {
       return res.status(404).json({ message: 'Produit non trouvé.' });
     }
 
-$
 
     await produit.destroy();
     res.status(200).json({ message: 'Produit supprimé avec succès.' });
@@ -338,3 +371,41 @@ exports.getTopRatedProducts = async (req, res) => {
     });
   }
 };
+
+
+exports.getAllProductsWithRecommendations = async (req, res) => {
+  try {
+      let allProducts = await Produit.findAll({ where: { status: 'approuvé' } });
+      let recommendedProducts = [];
+
+      // Vérifier si l'utilisateur est connecté (présence de req.user)
+      if (req.user && req.user.id) {
+          const userId = req.user.id;
+          recommendedProducts = await RecommendationEngine.getRecommendedProducts(userId);
+
+          // Filtrer les produits recommandés du tableau de tous les produits
+          const recommendedProductsDetails = await Produit.findAll({
+              where: { id: recommendedProducts, status: 'approuvé' }
+          });
+
+          // Retirer les produits recommandés du tableau allProducts pour éviter les doublons
+          allProducts = allProducts.filter(product =>
+              !recommendedProductsDetails.some(recommended => recommended.id === product.id)
+          );
+
+          // Concaténer les produits recommandés en premier, puis le reste
+          allProducts = [...recommendedProductsDetails, ...allProducts];
+      }
+
+      res.json({ success: true, data: allProducts });
+
+  } catch (error) {
+      console.error('Erreur lors de la récupération des produits avec recommandations:', error);
+      res.status(500).json({ success: false, message: 'Erreur lors de la récupération des produits.' });
+  }
+};
+
+
+
+
+

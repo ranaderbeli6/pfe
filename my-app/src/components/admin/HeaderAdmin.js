@@ -19,7 +19,7 @@ const HeaderAdmin = () => {
         <button onClick={() => navigate("/admin/gestion-produits")}>Gestion des Produits</button>
         <button onClick={() => navigate("/admin/gestion-commandes")}>Gestion des Commandes</button>
         <button onClick={() => navigate("/admin/statistiques")}>Statistiques</button>
-        <button onClick={() => navigate("/admin/gestion-paiements")}>Gestion des Paiements</button>
+        <button onClick={() => navigate("/admin/gestion-promotions")}>Gestion des Promotions</button>
       </div>
     </div>
   );

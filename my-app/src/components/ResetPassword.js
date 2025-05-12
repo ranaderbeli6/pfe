@@ -14,7 +14,7 @@ function ResetPassword() {
     try {
       const response = await axios.post('/auth/reset-password', { token, newPassword });
       setMessage(response.data.message);
-      setTimeout(() => navigate('/login'), 5000); 
+      navigate('/login');
     } catch (err) {
       setError(err.response.data.message || 'Erreur interne');
     }

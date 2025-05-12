@@ -46,7 +46,6 @@
     background: linear-gradient(90deg, #3498db, #9b59b6);
     border-radius: 2px;
 }
-
 .orders-info-bar {
     background: #f8f9fa;
     padding: 20px;
@@ -54,11 +53,13 @@
     margin-bottom: 30px;
     border-left: 4px solid #3498db;
     transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Ajout d'une légère ombre */
 }
 
 .orders-info-bar:hover {
-    background: #f1f8ff;
+    background: #e7f3ff; /* Un bleu très clair au survol */
     transform: translateX(5px);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée au survol */
 }
 
 .orders-info-bar p {
@@ -68,17 +69,25 @@
     line-height: 1.6;
 }
 
-.link-to-cart {
+.orders-info-bar strong {
+    font-weight: 700; /* Rendre le texte "Besoin de consulter..." plus visible */
+    color: #333; /* Assurer un contraste suffisant */
+}
+
+.orders-info-bar .link-to-cart {
     color: #3498db !important;
     font-weight: 600;
     transition: all 0.2s ease;
+    cursor: pointer; /* Indiquer que c'est cliquable */
+    padding: 2px 5px; /* Ajouter un peu d'espace autour du texte */
+    border-bottom: 2px solid #3498db; /* Soulignement discret */
 }
 
-.link-to-cart:hover {
+.orders-info-bar  .link-to-cart:hover {
     color: #2980b9 !important;
-    text-decoration: none !important;
+    text-decoration: none !important; /* Supprimer le soulignement par défaut au survol */
+    border-bottom-color: #2980b9; /* Changer la couleur du soulignement au survol */
 }
-
 .filters {
     display: flex;
     gap: 20px;
@@ -246,7 +255,7 @@
 }
 
 .btn-cancel {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    background: linear-gradient(135deg, #e3ab85, #d35143);
     color: white;
     box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }
@@ -415,7 +424,7 @@
 
 .btn-close {
     padding: 12px 24px;
-    background: #bdc3c7;
+    background: #4280a9;
     color: white;
     border: none;
     border-radius: 10px;
@@ -425,7 +434,7 @@
 }
 
 .btn-close:hover {
-    background: #95a5a6;
+    background: #334e50;
 }
 
 /* Animations */

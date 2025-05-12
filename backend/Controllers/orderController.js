@@ -29,7 +29,7 @@ exports.createOrder = async (req, res) => {
     }
 
     const orderItemsData = [];
-    let totalAmount = 0;
+    let totalAmount = 8;
 
     for (const item of cart.items) {
 

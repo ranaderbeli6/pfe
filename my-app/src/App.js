@@ -30,6 +30,9 @@ import Orders from "./components/user/orders";
 import OrdersManagement from "./components/admin/OrdersManagement";
 import AccountManagement from "./components/user/AccountManagement ";
 import Statistiques from "./components/fournisseur/Statistiques";
+import Factures from "./components/user/Factures ";
+import StatistiquesAdmin from "./components/admin/StatistiquesAdmin";
+import Promotions from "./components/admin/Promotions";
 function App() {
   return (
     <Router>
@@ -60,12 +63,16 @@ function App() {
         <Route path="/admin//gestion-commandes" element={<OrdersManagement />} />
 
         <Route path="/admin/gestion-produits" element={<AdminProductsenattenteManagement />} />
-
+        <Route path="/admin/statistiques" element={<StatistiquesAdmin />} />
+        <Route path="/admin/gestion-promotions" element={<Promotions />} />
+        
+        
   
       </Route>
         <Route path="/panier" element={<Panier />} />
+        <Route path="/factures" element={<Factures />} />
 
-
+        
 
         <Route path="/fournisseur" element={<FournisseurLayout />}>
           <Route index element={<FournisseurHome />} />

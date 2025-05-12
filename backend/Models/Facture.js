@@ -2,28 +2,47 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const Facture = sequelize.define('Facture', {
-      numero: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-      },
-      fraisLivraison: {
-        type: DataTypes.DECIMAL(10, 2),
-        defaultValue: 8.00
-      },
-      montantTotal: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
-      },
-      methodePaiement: {
-        type: DataTypes.STRING,
-        defaultValue: 'À la livraison'
-      }
-    });
-  
-    Facture.associate = (models) => {
-      Facture.belongsTo(models.Order, { foreignKey: 'orderId' });
-      Facture.belongsTo(models.User, { foreignKey: 'clientId' });
-    };
-  
-    module.exports = Facture;
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  OrderId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  fournisseurId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  numeroFacture: {
+    type: DataTypes.STRING,
+    unique: true
+  },
+  dateEmission: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW
+  },
+  dateEcheance: {
+    type: DataTypes.DATE
+  },
+  montantTotal: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false
+  },
+  statut: {
+    type: DataTypes.ENUM('brouillon', 'envoyée', 'payée', 'annulée'),
+    defaultValue: 'brouillon'
+  },
+  cheminPDF: {
+    type: DataTypes.STRING
+  }
+}, {
+  timestamps: true
+});
+
+module.exports = Facture;

@@ -39,6 +39,15 @@ const Produit = sequelize.define('Produit', {
     allowNull: false,
     defaultValue: 'en_attente',
   },
+  promo_price: {  
+    type: DataTypes.FLOAT,
+    allowNull: true
+  },
+  promotion_end_date: {  
+    type: DataTypes.DATE,
+    allowNull: true
+  }
+
 }, {
   tableName: 'produits'
 });

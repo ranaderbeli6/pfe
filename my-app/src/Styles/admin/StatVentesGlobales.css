@@ -1,0 +1,65 @@
+.stat-ventes-globales-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-ventes-globales-container h2,
+.stat-ventes-globales-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-ventes-globales-container h2 svg,
+.stat-ventes-globales-container h3 svg {
+    margin-right: 10px;
+}
+
+.kpi-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.kpi-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.kpi-icon {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.kpi-card h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.kpi-card p {
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+}
+
+.chart-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
