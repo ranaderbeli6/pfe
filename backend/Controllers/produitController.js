@@ -5,7 +5,6 @@ const CartItem = require('../Models/CartItem');
 const Avis = require('../Models/Avis');
 const RecommendationEngine = require('../Services/recommendationEngine');
 
-// Initialisation au démarrage
 RecommendationEngine.initialize().catch(err => {
     console.error('Erreur initialisation moteur:', err);
 });
@@ -40,7 +39,7 @@ exports.getProduits = async (req, res) => {
       where: { status: 'approuvé' },
     });
 
-    res.json(produits); // Renvoyez directement le tableau 'produits'
+    res.json(produits); 
   } catch (error) {
     console.error('Erreur:', error);
     res.status(500).json({
@@ -378,22 +377,18 @@ exports.getAllProductsWithRecommendations = async (req, res) => {
       let allProducts = await Produit.findAll({ where: { status: 'approuvé' } });
       let recommendedProducts = [];
 
-      // Vérifier si l'utilisateur est connecté (présence de req.user)
       if (req.user && req.user.id) {
           const userId = req.user.id;
           recommendedProducts = await RecommendationEngine.getRecommendedProducts(userId);
 
-          // Filtrer les produits recommandés du tableau de tous les produits
           const recommendedProductsDetails = await Produit.findAll({
               where: { id: recommendedProducts, status: 'approuvé' }
           });
 
-          // Retirer les produits recommandés du tableau allProducts pour éviter les doublons
           allProducts = allProducts.filter(product =>
               !recommendedProductsDetails.some(recommended => recommended.id === product.id)
           );
 
-          // Concaténer les produits recommandés en premier, puis le reste
           allProducts = [...recommendedProductsDetails, ...allProducts];
       }
 

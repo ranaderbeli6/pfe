@@ -66,7 +66,6 @@ const OrdersManagement = () => {
                 ));
                 alert("Statut mis à jour !");
 
-                // Créer la facture uniquement si le nouveau statut est "livré"
                 if (newStatus === 'livré') {
                     await createInvoiceForOrder(orderId);
                 }
@@ -107,7 +106,6 @@ const OrdersManagement = () => {
         <div style={{ padding: '20px' }}>
             <h2>Gestion des commandes</h2>
 
-            {/* Filtres et recherche */}
             <div style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>
                 <select
                     value={statusFilter}
@@ -180,7 +178,6 @@ const OrdersManagement = () => {
                 </tbody>
             </table>
 
-            {/* Pagination */}
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
                 <button
                     onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}

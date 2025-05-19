@@ -8,12 +8,11 @@ export default function Statistiques() {
     const [activeTab, setActiveTab] = useState('avis');
 
     const handleDownloadPdf = () => {
-        // Déclenchez ici la requête vers votre backend pour générer le PDF
-        // Assurez-vous que votre route backend pour l'export PDF est configurée
-        fetch('http://localhost:5000/api/stats/fournisseur/pdf', { // Remplacez par votre route réelle
+     
+        fetch('http://localhost:5000/api/stats/fournisseur/pdf', { 
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`, // Si vous utilisez l'authentification
+                'Authorization': `Bearer ${localStorage.getItem('token')}`, 
             },
         })
         .then(response => {
@@ -25,7 +24,6 @@ export default function Statistiques() {
             return response.blob();
         })
         .then(blob => {
-            // Créez un lien de téléchargement
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -37,7 +35,7 @@ export default function Statistiques() {
         })
         .catch(error => {
             console.error('Erreur de téléchargement PDF:', error);
-            alert(error.message); // Affichez une notification d'erreur à l'utilisateur
+            alert(error.message); 
         });
     };
 

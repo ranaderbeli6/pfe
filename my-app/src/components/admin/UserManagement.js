@@ -20,7 +20,6 @@ const UserManagement = () => {
         },
       });
 
-      // Ne pas afficher admin et superadmin
       const visibleUsers = response.data.filter(
         (user) => user.role !== 'admin' && user.role !== 'superadmin'
       );

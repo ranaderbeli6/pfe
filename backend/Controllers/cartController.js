@@ -38,10 +38,12 @@ const getCart = async (req, res) => {
     const cartWithItems = await Cart.findOne({
       where: { id: cart.id },
       include: [{
-        association: 'items', 
-        include: [Produit] 
+        model: CartItem,
+        as: 'items', 
+        include: [Produit]
       }]
     });
+    
 
     return res.status(200).json({
       success: true,

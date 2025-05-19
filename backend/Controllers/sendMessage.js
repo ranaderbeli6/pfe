@@ -13,7 +13,6 @@ async function sendMessage(req, res) {
   try {
     const { name, email, subject, message } = req.body;
 
-    // Validation des champs
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ 
         success: false,
@@ -37,7 +36,6 @@ async function sendMessage(req, res) {
       });
     }
 
-    // Validation simple de l'email
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ 
         success: false,

@@ -23,7 +23,7 @@ function AddServiceForm() {
     const file = e.target.files[0];
     if (file) {
       setFormData({ ...formData, image: file });
-      setPreview(URL.createObjectURL(file)); // Créer un aperçu
+      setPreview(URL.createObjectURL(file));
     }
   };
 

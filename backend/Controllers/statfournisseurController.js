@@ -1,7 +1,7 @@
 const { Produit, Order, OrderItem, Avis, User } = require('../Models');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
-const path = require('path'); // Importez le module 'path'
+const path = require('path'); 
 exports.getVentesStats = async (req, res) => {
   try {
     const fournisseurId = req.user.id;
@@ -269,7 +269,6 @@ exports.getProduitsStats = async (req, res) => {
 
         stats.clientsUnique = stats.clientsUnique.size;
 
-        // 🟢 Création du document PDF avec les métadonnées directement ici
         const doc = new PDFDocument({
             size: 'A4',
             margin: 50,
@@ -281,13 +280,11 @@ exports.getProduitsStats = async (req, res) => {
             }
         });
 
-        // Titre du document
         doc.fontSize(18).text('Statistiques des Ventes (Fournisseur)', { align: 'center' });
         doc.moveDown(0.5);
         doc.fontSize(12).text(`Période: ${startDate || 'Début'} - ${endDate || 'Fin'}`, { align: 'center' });
         doc.moveDown(1);
 
-        // Statistiques générales
         doc.fontSize(14).text('Statistiques Générales', { underline: true });
         doc.moveDown(0.5);
         doc.fontSize(12).text(`Total des ventes: ${stats.totalVentes}`);
@@ -296,7 +293,6 @@ exports.getProduitsStats = async (req, res) => {
         doc.text(`Nombre de clients uniques: ${stats.clientsUnique}`);
         doc.moveDown(1);
 
-        // Statistiques par produit
         doc.fontSize(14).text('Statistiques par Produit', { underline: true });
         doc.moveDown(0.5);
 
@@ -335,7 +331,6 @@ exports.getProduitsStats = async (req, res) => {
         drawTable(doc, productTable);
         doc.moveDown(1);
 
-        // Statistiques mensuelles
         doc.fontSize(14).text('Ventes Mensuelles', { underline: true });
         doc.moveDown(0.5);
 
@@ -348,7 +343,6 @@ exports.getProduitsStats = async (req, res) => {
 
         doc.end();
 
-        // Envoyer le PDF
         const pdfBytes = await new Promise((resolve) => {
             const chunks = [];
             doc.on('data', (chunk) => chunks.push(chunk));

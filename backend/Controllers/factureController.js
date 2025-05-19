@@ -77,97 +77,116 @@ const montantTTC = montantHT + montantTVA + 8;
 
 async function genererPDFFacture(facture, order, montantHT, montantTVA, montantTTC) {
   return new Promise((resolve, reject) => {
-      const doc = new PDFDocument({
-          margin: 50 
-      });
-      const facturesDir = path.join(__dirname, '../factures');
+    const doc = new PDFDocument({
+      margin: 50
+    });
+    const facturesDir = path.join(__dirname, '../factures');
 
-      if (!fs.existsSync(facturesDir)) {
-          fs.mkdirSync(facturesDir, { recursive: true });
+    if (!fs.existsSync(facturesDir)) {
+      fs.mkdirSync(facturesDir, { recursive: true });
+    }
+
+    const pdfFileName = `${facture.numeroFacture}.pdf`;
+    const pdfPath = path.join(facturesDir, pdfFileName);
+    const stream = fs.createWriteStream(pdfPath);
+    doc.pipe(stream);
+
+    const logoPath = path.join(__dirname, '../images/logo.png');
+    const pageWidth = doc.page.width;
+    const pageHeight = doc.page.height;
+
+    doc.rect(20, 20, pageWidth - 40, pageHeight - 40)
+       .lineWidth(2)
+       .strokeColor('#000000')
+       .stroke();
+
+    const logoOptions = { width: 100 };
+    const logoX = pageWidth - logoOptions.width - 50;
+    const logoY = 50;
+
+    if (fs.existsSync(logoPath)) {
+      doc.image(logoPath, logoX, logoY, logoOptions);
+    }
+
+    doc.fontSize(24)
+       .font('Helvetica-Bold')
+       .text(`Facture ${facture.numeroFacture}`, 50, logoY, { align: 'left' })
+       .moveDown(0.5);
+
+    let infoY = doc.y;
+    doc.fontSize(12)
+       .font('Helvetica')
+       .text(`Date : ${facture.dateEmission.toLocaleDateString()}`, 50, infoY)
+       .text(`Client : ${order.buyerName || `Client ${facture.userId}`}`, 50)
+       .text(`Adresse : ${order.shippingAddress}`, 50)
+       .moveDown();
+
+    doc.fontSize(14)
+       .font('Helvetica-Bold')
+       .text('Articles commandés:', 50, doc.y, { underline: true })
+       .moveDown(0.5);
+
+    const xProduit = 50;
+    const xQte = 300;
+    const xPrixHT = 370;
+    const xTotalHT = 460;
+    let y = doc.y;
+
+    doc.font('Helvetica-Bold')
+       .text('Produit', xProduit, y)
+       .text('Qté', xQte, y)
+       .text('Prix HT', xPrixHT, y)
+       .text('Total HT', xTotalHT, y);
+
+    y += 20;
+    doc.font('Helvetica');
+
+    order.items.forEach(item => {
+      doc.text(item.Produit?.name || `Produit ${item.productId}`, xProduit, y)
+         .text(item.quantity.toString(), xQte, y)
+         .text(`${item.priceAtPurchase.toFixed(2)} DNT`, xPrixHT, y)
+         .text(`${(item.quantity * item.priceAtPurchase).toFixed(2)} DNT`, xTotalHT, y);
+      y += 20;
+    });
+
+    y += 10;
+    doc.font('Helvetica')
+       .text(`Total HT : ${montantHT.toFixed(2)} DNT`, xTotalHT - 100, y)
+       .text(`TVA (19%) : ${montantTVA.toFixed(2)} DNT`, xTotalHT - 100, y + 15);
+
+    const boxX = xTotalHT - 120;
+    const boxY = y + 40;
+    const boxWidth = 150;
+    const boxHeight = 40;
+
+    doc.roundedRect(boxX, boxY, boxWidth, boxHeight, 5)
+       .fillAndStroke('#f0f0f0', '#000000');
+
+    doc.fillColor('#000000')
+       .font('Helvetica-Bold')
+       .fontSize(16)
+       .text(`Total TTC : ${montantTTC.toFixed(2)} DNT`, boxX + 10, boxY + 12);
+
+    doc.fontSize(12)
+       .font('Helvetica-Oblique')
+       .fillColor('gray')
+       .text('Merci pour votre confiance et votre commande !', 0, pageHeight - 70, { align: 'center' });
+
+    doc.end();
+
+    stream.on('finish', async () => {
+      try {
+        facture.cheminPDF = pdfFileName;
+        await facture.save();
+        resolve(pdfPath);
+      } catch (err) {
+        reject(err);
       }
-
-      const pdfFileName = `${facture.numeroFacture}.pdf`;
-      const pdfPath = path.join(facturesDir, pdfFileName);
-      const stream = fs.createWriteStream(pdfPath);
-      doc.pipe(stream);
-
-      const logoPath = path.join(__dirname, '../images/logo.png');
-      const pageWidth = doc.page.width;
-      const logoOptions = { width: 100 };
-      const logoX = pageWidth - logoOptions.width - 50; 
-      const logoY = 50; 
-
-      if (fs.existsSync(logoPath)) {
-          doc.image(logoPath, logoX, logoY, logoOptions);
-      }
-
-      doc.fontSize(24) 
-          .font('Helvetica-Bold') // Mettre le titre en gras
-          .text(`Facture ${facture.numeroFacture}`, 50, 50, { // Aligner à gauche et ajuster la position Y si le logo est présent
-              align: 'left',
-              y: fs.existsSync(logoPath) ? logoY + logoOptions.height + 20 : 50 // Ajuster la position Y si logo
-          })
-          .moveDown(0.5); // Réduire l'espace après le titre
-
-      doc.fontSize(12)
-          .font('Helvetica') // Revenir à la police normale pour les détails
-          .text(`Date: ${facture.dateEmission.toLocaleDateString()}`, 50)
-          .text(`Client: ${order.buyerName || `Client ${facture.userId}`}`, 50)
-          .text(`Adresse: ${order.shippingAddress}`, 50)
-          .moveDown();
-
-      doc.fontSize(14)
-          .font('Helvetica-Bold') // Mettre en gras l'en-tête des articles
-          .text('Articles commandés:', 50, undefined, { underline: true })
-          .moveDown();
-
-      let y = doc.y;
-      const xProduit = 50;
-      const xQte = 200;
-      const xPrixHT = 300;
-      const xTotalHT = 400;
-
-      doc.font('Helvetica-Bold')
-          .text('Produit', xProduit, y)
-          .text('Qté', xQte, y)
-          .text('Prix HT', xPrixHT, y)
-          .text('Total HT', xTotalHT, y);
-
-      y += 25;
-
-      order.items.forEach(item => {
-          doc.font('Helvetica')
-              .text(item.Produit?.name || `Produit ${item.productId}`, xProduit, y)
-              .text(item.quantity.toString(), xQte, y)
-              .text(`${item.priceAtPurchase.toFixed(2)} DNT`, xPrixHT, y)
-              .text(`${(item.quantity * item.priceAtPurchase).toFixed(2)} DNT`, xTotalHT, y);
-          y += 20;
-      });
-
-      doc.moveDown();
-      doc.font('Helvetica')
-          .text(`Total HT: ${montantHT.toFixed(2)} DNT`, 50, undefined) // Aligner à gauche
-          .text(`TVA (19%): ${montantTVA.toFixed(2)} DNT`, 50) // Aligner à gauche
-          .moveDown(0.5);
-
-      doc.font('Helvetica-Bold')
-          .fontSize(14) // Augmenter la taille du total TTC
-          .text(`Total TTC: ${montantTTC.toFixed(2)} DNT`, 50); // Aligner à gauche
-
-      doc.end();
-
-      stream.on('finish', async () => {
-          try {
-              facture.cheminPDF = pdfFileName;
-              await facture.save();
-              resolve(pdfPath);
-          } catch (err) {
-              reject(err);
-          }
-      });
-      stream.on('error', reject);
+    });
+    stream.on('error', reject);
   });
 }
+
 exports.telechargerFacture = async (req, res) => {
   try {
     const { factureId } = req.params;

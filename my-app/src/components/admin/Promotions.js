@@ -13,10 +13,10 @@ const Promotions = () => {
     start_date: '',
     end_date: '',
   });
-  const [filterType, setFilterType] = useState('all'); // 'all', 'active', 'inactive'
+  const [filterType, setFilterType] = useState('all'); 
   const [filterValue, setFilterValue] = useState('');
 
-  const token = localStorage.getItem('token'); // Récupérez votre token d'authentification
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchPromotions();
@@ -30,7 +30,6 @@ const Promotions = () => {
       setPromotions(response.data.promotions);
     } catch (error) {
       console.error('Erreur lors de la récupération des promotions:', error);
-      // Gérez l'erreur d'affichage ici (par ex., un message à l'utilisateur)
     }
   };
 
@@ -42,7 +41,7 @@ const Promotions = () => {
           data: { id: promotionId },
         });
         if (response.data.success) {
-          fetchPromotions(); // Recharger la liste après suppression
+          fetchPromotions(); 
         } else {
           alert(response.data.error || 'Erreur lors de l\'annulation de la promotion.');
         }
@@ -65,8 +64,8 @@ const Promotions = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data.success) {
-        setShowAddForm(false); // Cacher le formulaire après ajout
-        setNewPromotion({ // Réinitialiser le formulaire
+        setShowAddForm(false); 
+        setNewPromotion({ 
           produit_id: '',
           name: '',
           description: '',
@@ -75,7 +74,7 @@ const Promotions = () => {
           start_date: '',
           end_date: '',
         });
-        fetchPromotions(); // Recharger la liste après ajout
+        fetchPromotions(); 
       } else {
         alert(response.data.error || 'Erreur lors de l\'ajout de la promotion.');
       }
@@ -110,12 +109,10 @@ const Promotions = () => {
     <div>
       <h2>Gestion des Promotions</h2>
 
-      {/* Bouton Ajouter une Promotion */}
       <button onClick={() => setShowAddForm(!showAddForm)}>
         {showAddForm ? 'Cacher le Formulaire' : 'Ajouter une Promotion'}
       </button>
 
-      {/* Formulaire d'ajout (affiché conditionnellement) */}
       {showAddForm && (
         <form onSubmit={handleAddPromotion}>
           <div>
@@ -215,7 +212,6 @@ const Promotions = () => {
         />
       </div>
 
-      {/* Liste des promotions */}
       <h3>Liste des Promotions</h3>
       {filteredPromotions().length === 0 ? (
         <p>Aucune promotion trouvée.</p>

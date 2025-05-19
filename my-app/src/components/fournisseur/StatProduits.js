@@ -60,7 +60,6 @@ const StatProduits = () => {
   if (loading) return <div className="loading">Chargement en cours...</div>;
   if (error) return <div className="error">{error}</div>;
 
-  // Préparer les données pour le graphique (top 5 produits par CA)
   const topProduits = [...sortedStats]
     .sort((a, b) => b.chiffreAffaire - a.chiffreAffaire)
     .slice(0, 5);

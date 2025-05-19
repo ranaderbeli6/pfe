@@ -43,7 +43,7 @@ function QuickChat() {
             return "Pour ajouter un produit :\n1. Connectez-vous à votre espace vendeur\n2. Remplissez la fiche produit (photos, description, prix)\n3. Soumettez à validation\n4. L'équipe Weefarm valide sous 24h";
         }
     
-        if (q.includes('acheter') || q.includes('commander') || q.includes('commandes')) {
+        if (q.includes('acheter') || q.includes('commander') || q.includes('commandes') || q.includes('commande')) {
             return "Pour commander :\n1. Parcourez le catalogue\n2. Ajoutez au panier\n3. Validez votre commande\n4. et suivez la livraison en temps réel";
         }
     
@@ -56,7 +56,7 @@ function QuickChat() {
             return "En cas de problème technique :\n1. Essayez de rafraîchir la page\n2. Vérifiez votre connexion\n3. Contactez notre support à ranaverdanova@gmail.com ou cliquez sur contact ci_dessus\n4. Précisez votre navigateur et les étapes reproduisant le problème";
         }
     
-        if (q.includes('contact') || q.includes('aide')) {
+        if (q.includes('contacter') || q.includes('aide') || q.includes('question') ) {
             return "Nous contacter :\n- Email : ranaverdanova@gmail.com\n- Tél : +216 25 150 092\n- Horaires : Notre équipe vous répond sous 24h.";
         }
     

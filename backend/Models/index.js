@@ -13,7 +13,6 @@ const sequelize = new Sequelize(
   }
 );
 
-// Imports
 const User = require('./User');
 const Produit = require('./Produit');
 const Service = require('./Service'); 
@@ -29,15 +28,12 @@ const Promotion =require('./Promotion');
 User.hasMany(Produit, { foreignKey: 'userId' });
 Produit.belongsTo(User, { foreignKey: 'userId' });
 
-// Service et User
 User.hasMany(Service, { foreignKey: 'userId' });
 Service.belongsTo(User, { foreignKey: 'userId' });
 
-// Cart et User
 User.hasMany(Cart, { foreignKey: 'userId' });
 Cart.belongsTo(User, { foreignKey: 'userId' });
 
-// Cart et CartItem
 Cart.hasMany(CartItem, { 
   foreignKey: 'cartId',
   onDelete: 'CASCADE',
@@ -51,11 +47,9 @@ Produit.hasMany(CartItem, {
 });
 CartItem.belongsTo(Produit, { foreignKey: 'productId' });
 
-// Order et User
 User.hasMany(Order, { foreignKey: 'userId' });
 Order.belongsTo(User, { foreignKey: 'userId' });
 
-// Order et Cart
 Cart.hasOne(Order, { foreignKey: 'cartId' });
 Order.belongsTo(Cart, { foreignKey: 'cartId' });
 
@@ -67,11 +61,9 @@ Order.hasMany(OrderItem, {
 });
 OrderItem.belongsTo(Order, { foreignKey: 'orderId' });
 
-// Produit <--> OrderItem
 Produit.hasMany(OrderItem, { foreignKey: 'productId' });
 OrderItem.belongsTo(Produit, { foreignKey: 'productId' });
 
-// User (fournisseur) <--> OrderItem
 User.hasMany(OrderItem, { foreignKey: 'fournisseurId', as: 'FournisseurItems' });
 OrderItem.belongsTo(User, { foreignKey: 'fournisseurId', as: 'Fournisseur' });
 
@@ -83,7 +75,6 @@ Produit.hasMany(Avis, { foreignKey: 'produitId', as: 'avis' });
 Avis.belongsTo(Produit, { foreignKey: 'produitId', as: 'produit' });
 
 
-//facture
 
 Facture.belongsTo(Order, { foreignKey: 'OrderId' });
 Facture.belongsTo(User, { foreignKey: 'userId', as: 'Client' });
@@ -98,16 +89,14 @@ LigneFacture.belongsTo(Facture, { foreignKey: 'factureId' });
 Promotion.belongsTo(Produit, {
   foreignKey: 'produit_id',
   as: 'produit',
-  onDelete: 'CASCADE' // Si le produit est supprimé, sa promotion aussi
+  onDelete: 'CASCADE' 
 });
 
-// Association Produit -> Promotion (One-to-Many)
 Produit.hasMany(Promotion, {
   foreignKey: 'produit_id',
   as: 'promotions'
 });
 
-// Association Promotion -> User (Admin qui a créé la promo)
 Promotion.belongsTo(User, {
   foreignKey: 'created_by',
   as: 'admin'

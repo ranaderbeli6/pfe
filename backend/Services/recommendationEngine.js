@@ -8,25 +8,22 @@ class RecommendationEngine {
         this.productVectors = new Map();
         this.termIndex = new Map();
         this.nextTermId = 0;
-        this.cartItemAlias = 'items'; // Ajustez selon votre alias réel
+        this.cartItemAlias = 'items'; 
     }
 
     async initialize() {
         console.log('Initialisation du moteur de recommandation...');
 
         try {
-            // 1. Charger tous les produits approuvés
             const produits = await Produit.findAll({
                 where: { status: 'approuvé' },
                 attributes: ['id', 'name', 'description', 'category']
             });
             console.log(`Nombre de produits approuvés trouvés: ${produits.length}`);
 
-            // 2. Construire le vocabulaire
             this.buildVocabulary(produits);
             console.log(`Taille du vocabulaire (termIndex): ${this.termIndex.size}`);
 
-            // 3. Créer les vecteurs
             produits.forEach(produit => {
                 const vector = this.createProductVector(produit);
                 this.productVectors.set(produit.id, vector);

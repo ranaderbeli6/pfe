@@ -3,7 +3,7 @@ const { Order, OrderItem, Produit, User, Cart, CartItem, sequelize } = require('
 
 exports.createOrder = async (req, res) => {
   try {
-    const { paymentMethod, shippingAddress } = req.body; // récupère aussi shippingAddress du body
+    const { paymentMethod, shippingAddress } = req.body; 
     const user = await User.findByPk(req.user.id);
     const userId = user.id;
 
@@ -121,14 +121,13 @@ exports.getFournisseurOrders = async (req, res) => {
 
 exports.getAllOrders = async (req, res) => {
   try {
-    // Récupérer toutes les commandes avec les informations associées (produits, utilisateur, fournisseur)
     const orders = await Order.findAll({
       include: [
         {
           model: User,
           as: 'User',
-          attributes: ['id', 'fullName', 'email', 'phoneNumber', 'address'], // Détails de l'utilisateur (acheteur)
-          required: false // Permet d'inclure les commandes sans utilisateur (commandes invitées)
+          attributes: ['id', 'fullName', 'email', 'phoneNumber', 'address'],
+          required: false 
         },
         {
           model: OrderItem,
@@ -136,25 +135,24 @@ exports.getAllOrders = async (req, res) => {
           include: [
             {
               model: Produit,
-              attributes: ['id', 'name', 'description', 'price'] // Détails du produit
+              attributes: ['id', 'name', 'description', 'price'] 
             },
             {
               model: User,
-              as: 'Fournisseur', // Détails du fournisseur (vendeur)
+              as: 'Fournisseur', 
               attributes: ['id', 'fullName', 'email', 'phoneNumber'],
-              required: false // Permet d'inclure les items sans fournisseur
+              required: false 
             }
           ]
         }
       ],
-      order: [['createdAt', 'DESC']] // Trier par date de création de la commande
+      order: [['createdAt', 'DESC']] 
     });
 
     if (!orders.length) {
       return res.status(404).json({ message: "Aucune commande trouvée.", orders: [] });
     }
 
-    // Formater les données des commandes récupérées
     const formattedOrders = orders.map(order => {
       // Détails de l'acheteur (user)
       const buyer = order.User ? {
@@ -283,8 +281,8 @@ exports.getUserOrders = async (req, res) => {
             },
             {
               model: User,
-              as: 'Fournisseur', // Association vers User (fournisseur)
-              attributes: ['fullName'] // On récupère le nom du fournisseur
+              as: 'Fournisseur', 
+              attributes: ['fullName'] 
             }
           ]
         }
@@ -339,7 +337,6 @@ exports.cancelOrder = async (req, res) => {
   const orderId = req.params.id;
 
   try {
-    // Charger la commande avec ses articles
     const order = await Order.findByPk(orderId, {
       include: [
         {
@@ -357,7 +354,6 @@ exports.cancelOrder = async (req, res) => {
       return res.status(404).json({ message: "Commande introuvable." });
     }
 
-    // Restocker chaque produit
     for (const item of order.items) {
       const produit = item.Produit;
       if (produit) {
@@ -366,10 +362,8 @@ exports.cancelOrder = async (req, res) => {
       }
     }
 
-    // Supprimer les articles liés
     await OrderItem.destroy({ where: { orderId } });
 
-    // Supprimer la commande
     await order.destroy();
 
     return res.status(200).json({ message: "Commande annulée, produits restockés et supprimés." });

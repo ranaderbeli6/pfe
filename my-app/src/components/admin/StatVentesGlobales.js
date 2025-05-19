@@ -5,7 +5,7 @@ import {
     LineChart, Line, Legend, PieChart, Pie, Cell
 } from 'recharts';
 import { FaChartLine, FaBoxes, FaUsers, FaMoneyBillWave } from 'react-icons/fa';
-import '../../Styles/admin/StatVentesGlobales.css'; // Importez votre fichier CSS
+import '../../Styles/admin/StatVentesGlobales.css'; 
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 

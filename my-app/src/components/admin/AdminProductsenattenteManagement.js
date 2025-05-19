@@ -95,7 +95,6 @@ const AdminProductsManagement = () => {
   };
 
   const supprimerProduit = async (id) => {
-    // Confirmation avant suppression
     const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');
     if (!confirmDelete) return;
 

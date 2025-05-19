@@ -1,4 +1,3 @@
-// controllers/promotionController.js
 const { Op } = require('sequelize');
 const Promotion =require ('../Models/Promotion');
 const Produit =require ('../Models/Produit')
@@ -7,7 +6,6 @@ exports.createPromotion = async (req, res) => {
   try {
     const { produit_id, name, description, discount_type, discount_value, start_date, end_date } = req.body;
 
-    // Validation
     if (!['percentage', 'fixed'].includes(discount_type)) {
       return res.status(400).json({ error: "Type de réduction invalide" });
     }
@@ -25,12 +23,10 @@ exports.createPromotion = async (req, res) => {
       return res.status(404).json({ error: "Produit non trouvé" });
     }
 
-    // Sauvegarder l'ancien prix si c'est la première promotion
     if (!product.promo_price) {
       await product.update({ promo_price: product.price });
     }
 
-    // Calculer le nouveau prix
     let newPrice;
     if (discount_type === 'percentage') {
       newPrice = product.promo_price * (1 - discount_value / 100);
@@ -38,7 +34,6 @@ exports.createPromotion = async (req, res) => {
       newPrice = product.promo_price - discount_value;
     }
 
-    // Créer la promotion
     const promotion = await Promotion.create({
       produit_id,
       name,
@@ -51,9 +46,8 @@ exports.createPromotion = async (req, res) => {
       is_active: true
     });
 
-    // Mettre à jour le prix du produit
     await product.update({
-      price: Math.max(newPrice, 0), // Éviter les prix négatifs
+      price: Math.max(newPrice, 0), 
       promotion_end_date: end_date
     });
 
@@ -88,7 +82,6 @@ exports.cancelPromotion = async (req, res) => {
       return res.status(404).json({ error: "Produit associé non trouvé" });
     }
 
-    // Rétablir le prix original
     if (product.promo_price) {
       await product.update({
         price: product.promo_price,
@@ -97,7 +90,6 @@ exports.cancelPromotion = async (req, res) => {
       });
     }
 
-    // Désactiver la promotion
     await promotion.update({ is_active: false });
 
     res.json({
@@ -118,18 +110,15 @@ exports.cancelPromotion = async (req, res) => {
 
 exports.getAllPromotions = async (req, res) => {
   try {
-    // Récupérer toutes les promotions
-    const promotions = await Promotion.findAll(); // findAll() récupère toutes les entrées de la table
+    const promotions = await Promotion.findAll(); 
 
-    // Vérifier si des promotions existent
     if (promotions.length === 0) {
       return res.status(404).json({ message: "Aucune promotion trouvée" });
     }
 
-    // Retourner les promotions
     res.json({
       success: true,
-      promotions, // Les promotions seront envoyées en réponse
+      promotions,
     });
   } catch (error) {
     console.error("Erreur récupération des promotions:", error);

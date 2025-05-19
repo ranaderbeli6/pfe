@@ -180,14 +180,7 @@ const Home = () => {
             </ul>
           </div>
           
-          <div className="footer-column">
-            <h4>Légal</h4>
-            <ul>
-              <li><a href="/confidentialite">Confidentialité</a></li>
-              <li><a href="/conditions">Conditions</a></li>
-              <li><a href="/cookies">Cookies</a></li>
-            </ul>
-          </div>
+
           
           <div className="footer-column">
             <h4>Contact</h4>

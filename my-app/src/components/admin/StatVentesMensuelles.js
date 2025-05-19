@@ -12,7 +12,6 @@ const StatVentesMensuelles = () => {
         axios.get('http://localhost:5000/api/statsadmin/ventes-mensuelles')
             .then(res => {
                 setVentesMensuelles(res.data.monthlySales);
-                // Extraction des années uniques pour le filtre
                 const years = [...new Set(res.data.monthlySales.map(item => item.mois.split(' ')[1]))];
                 setAvailableYears(years.sort());
             })
@@ -22,7 +21,6 @@ const StatVentesMensuelles = () => {
     }, []);
 
     useEffect(() => {
-        // Filtrage des ventes en fonction de l'année et du mois sélectionnés
         let filtered = ventesMensuelles;
 
         if (selectedYear) {
@@ -38,7 +36,7 @@ const StatVentesMensuelles = () => {
 
     const handleYearChange = (event) => {
         setSelectedYear(event.target.value);
-        setSelectedMonth(''); // Réinitialiser le mois lors du changement d'année
+        setSelectedMonth(''); 
     };
 
     const handleMonthChange = (event) => {

@@ -76,7 +76,6 @@ export default function StatAvis() {
 
   if (!stats) return null;
 
-  // Préparation des données pour le graphique
   const data = Object.entries(stats.repartitionNotes).map(([note, count]) => ({
     note: `${note} étoile${note > 1 ? 's' : ''}`,
     count,
